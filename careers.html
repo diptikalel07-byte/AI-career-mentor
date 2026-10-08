@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Career Explorer | AI Career Mentor</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <style>
+
+        /* =========================================
+           CAREER EXPLORER
+        ========================================= */
+
+        .career-hero {
+            padding: 35px;
+            margin-bottom: 25px;
+            border-radius: 22px;
+            background: linear-gradient(
+                135deg,
+                #eef2ff,
+                #ffffff
+            );
+            border: 1px solid #e5e7eb;
+        }
+
+        .career-hero h2 {
+            margin: 8px 0 12px;
+            font-size: 34px;
+            line-height: 1.2;
+            color: #111827;
+        }
+
+        .career-hero h2 strong {
+            color: #6366f1;
+        }
+
+        .career-hero p {
+            max-width: 700px;
+            margin: 0;
+            color: #6b7280;
+            line-height: 1.7;
+        }
+
+        .hero-label {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #6366f1;
+        }
+
+        /* SEARCH */
+
+        .career-search-section {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .career-search {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 0 15px;
+        }
+
+        .career-search span {
+            font-size: 22px;
+            color: #6b7280;
+        }
+
+        .career-search input {
+            width: 100%;
+            border: none;
+            outline: none;
+            padding: 15px 5px;
+            font-size: 14px;
+            background: transparent;
+        }
+
+        #categoryFilter {
+            min-width: 190px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            background: white;
+            padding: 0 15px;
+            outline: none;
+            color: #374151;
+            cursor: pointer;
+        }
+
+        /* CONTENT */
+
+        .career-content {
+            margin-bottom: 40px;
+        }
+
+        .section-heading {
+            margin-bottom: 20px;
+        }
+
+        .section-heading h2 {
+            margin: 0 0 5px;
+            color: #111827;
+        }
+
+        .section-heading p {
+            margin: 0;
+            color: #6b7280;
+        }
+
+        /* CAREER GRID */
+
+        .career-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .career-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+            padding: 22px;
+            transition: 0.2s ease;
+            box-shadow:
+                0 5px 18px rgba(0, 0, 0, 0.03);
+        }
+
+        .career-card:hover {
+            transform: translateY(-4px);
+            box-shadow:
+                0 12px 30px rgba(0, 0, 0, 0.08);
+            border-color: #c7d2fe;
+        }
+
+        .career-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .career-icon {
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            background: #eef2ff;
+            font-size: 25px;
+        }
+
+        .save-icon {
+            width: 38px;
+            height: 38px;
+            border: none;
+            border-radius: 10px;
+            background: #f3f4f6;
+            font-size: 20px;
+            cursor: pointer;
+            color: #6b7280;
+            transition: 0.2s ease;
+        }
+
+        .save-icon:hover {
+            background: #eef2ff;
+            color: #6366f1;
+        }
+
+        .save-icon.saved {
+            background: #eef2ff;
+            color: #6366f1;
+        }
+
+        .career-category {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: #f3f4f6;
+            color: #6366f1;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .career-card h3 {
+            margin: 0 0 10px;
+            font-size: 19px;
+            color: #111827;
+        }
+
+        .career-card > p {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.6;
+            min-height: 65px;
+        }
+
+        .career-card-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin: 15px 0;
+        }
+
+        .career-card-skills span {
+            padding: 5px 9px;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 11px;
+            color: #4b5563;
+        }
+
+        .career-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding-top: 15px;
+            border-top: 1px solid #f3f4f6;
+        }
+
+        .career-card-footer span {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        .career-card-footer button {
+            border: none;
+            background: transparent;
+            color: #6366f1;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .career-card-footer button:hover {
+            color: #4f46e5;
+        }
+
+        /* EMPTY */
+
+        .no-careers {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+        }
+
+        .no-careers > div {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .no-careers h3 {
+            margin: 0 0 8px;
+        }
+
+        .no-careers p {
+            color: #6b7280;
+        }
+
+        /* MODAL */
+
+        .career-modal {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(17, 24, 39, 0.55);
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .career-modal.show {
+            display: flex;
+        }
+
+        .career-modal-box {
+            position: relative;
+            width: min(650px, 100%);
+            max-height: 90vh;
+            overflow-y: auto;
+            background: white;
+            border-radius: 22px;
+            padding: 30px;
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 38px;
+            height: 38px;
+            border: none;
+            border-radius: 10px;
+            background: #f3f4f6;
+            font-size: 24px;
+            cursor: pointer;
+            color: #374151;
+        }
+
+        .modal-icon {
+            width: 65px;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 18px;
+            background: #eef2ff;
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .modal-category {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: #eef2ff;
+            color: #6366f1;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .career-modal-box h2 {
+            margin: 12px 0;
+            font-size: 28px;
+            color: #111827;
+        }
+
+        #modalDescription {
+            color: #6b7280;
+            line-height: 1.7;
+        }
+
+        .modal-info-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(3, 1fr);
+            gap: 12px;
+            margin: 25px 0;
+        }
+
+        .modal-info-grid > div {
+            padding: 15px;
+            background: #f9fafb;
+            border-radius: 12px;
+        }
+
+        .modal-info-grid span {
+            display: block;
+            font-size: 11px;
+            color: #6b7280;
+            margin-bottom: 6px;
+        }
+
+        .modal-info-grid strong {
+            font-size: 13px;
+            color: #111827;
+        }
+
+        .modal-skills h3 {
+            margin-bottom: 12px;
+        }
+
+        #modalSkills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        #modalSkills span {
+            padding: 7px 11px;
+            border-radius: 8px;
+            background: #eef2ff;
+            color: #4f46e5;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .modal-save-button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: #6366f1;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .modal-save-button:hover {
+            background: #4f46e5;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .career-search-section {
+                flex-direction: column;
+            }
+
+            #categoryFilter {
+                min-height: 48px;
+            }
+
+            .modal-info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .career-hero h2 {
+                font-size: 27px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                AI
+            </div>
+
+            <div>
+                <h2>CareerMentor</h2>
+                <span>AI Career Guidance</span>
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="dashboard.html">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a
+                href="careers.html"
+                class="active"
+            >
+                <span>💼</span>
+                Career Explorer
+            </a>
+
+            <a href="assessment.html">
+                <span>✓</span>
+                Skill Assessment
+            </a>
+
+            <a href="roadmap.html">
+                <span>◎</span>
+                Career Roadmap
+            </a>
+
+            <a href="mentor.html">
+                <span>✦</span>
+                AI Mentor
+            </a>
+
+            <a href="jobs.html">
+                <span>▣</span>
+                Jobs
+            </a>
+
+            <a href="learning.html">
+                <span>▤</span>
+                Learning Hub
+            </a>
+
+            <a href="profile.html">
+                <span>♙</span>
+                Profile
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button
+                onclick="logoutUser()"
+                class="logout-button"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- MAIN -->
+
+    <main class="main-area">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>
+                    Career Explorer
+                </h1>
+
+                <p>
+                    Discover careers that match your
+                    skills and interests.
+                </p>
+
+            </div>
+
+
+            <div class="user-mini">
+
+                <div
+                    class="mini-avatar"
+                    id="userAvatar"
+                >
+                    U
+                </div>
+
+                <div>
+
+                    <strong id="userName">
+                        User
+                    </strong>
+
+                    <small>
+                        Career Explorer
+                    </small>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- HERO -->
+
+        <section class="career-hero">
+
+            <div>
+
+                <span class="hero-label">
+                    EXPLORE YOUR FUTURE
+                </span>
+
+                <h2>
+                    Find a career that fits
+                    <br>
+                    <strong>
+                        your potential.
+                    </strong>
+                </h2>
+
+                <p>
+                    Explore different career paths,
+                    understand required skills and
+                    save the careers that interest you.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- SEARCH -->
+
+        <section class="career-search-section">
+
+            <div class="career-search">
+
+                <span>
+                    ⌕
+                </span>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search careers, skills or technologies..."
+                >
+
+            </div>
+
+
+            <select id="categoryFilter">
+
+                <option value="">
+                    All Categories
+                </option>
+
+                <option value="Technology">
+                    Technology
+                </option>
+
+                <option value="Data">
+                    Data
+                </option>
+
+                <option value="Artificial Intelligence">
+                    Artificial Intelligence
+                </option>
+
+                <option value="Cybersecurity">
+                    Cybersecurity
+                </option>
+
+                <option value="Design">
+                    Design
+                </option>
+
+                <option value="Cloud">
+                    Cloud
+                </option>
+
+                <option value="Business">
+                    Business
+                </option>
+
+                <option value="Marketing">
+                    Marketing
+                </option>
+
+            </select>
+
+        </section>
+
+
+
+        <!-- CAREER CONTENT -->
+
+        <section class="career-content">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Explore Careers
+                    </h2>
+
+                    <p id="careerCount">
+                        Loading careers...
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="career-grid"
+                id="careerGrid"
+            ></div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- CAREER MODAL -->
+
+<div
+    class="career-modal"
+    id="careerModal"
+>
+
+    <div class="career-modal-box">
+
+        <button
+            class="modal-close"
+            onclick="closeCareerModal()"
+        >
+            ×
+        </button>
+
+
+        <div
+            class="modal-icon"
+            id="modalIcon"
+        >
+            💼
+        </div>
+
+
+        <span
+            class="modal-category"
+            id="modalCategory"
+        ></span>
+
+
+        <h2 id="modalTitle"></h2>
+
+
+        <p id="modalDescription"></p>
+
+
+        <div class="modal-info-grid">
+
+            <div>
+
+                <span>
+                    Education
+                </span>
+
+                <strong id="modalEducation"></strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Career Growth
+                </span>
+
+                <strong id="modalGrowth"></strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Work Style
+                </span>
+
+                <strong id="modalWorkStyle"></strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-skills">
+
+            <h3>
+                Required Skills
+            </h3>
+
+            <div id="modalSkills"></div>
+
+        </div>
+
+
+        <button
+            class="modal-save-button"
+            id="modalSaveButton"
+        >
+            Save Career
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+let allCareers = [];
+
+let currentCareer = null;
+
+
+
+// =====================================================
+// LOAD USER
+// =====================================================
+
+async function loadUser() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/user",
+                {
+                    method: "GET",
+                    credentials: "include"
+                }
+            );
+
+        const data =
+            await response.json();
+
+
+        /*
+            SERVER RESPONSE:
+
+            {
+                success: true,
+                user: {
+                    id: ...,
+                    name: ...,
+                    email: ...
+                }
+            }
+
+            The old page checked data.loggedIn,
+            but that property does not exist.
+        */
+
+        if (
+            !response.ok ||
+            !data.success ||
+            !data.user
+        ) {
+
+            window.location.href =
+                "login.html";
+
+            return;
+        }
+
+
+        document.getElementById(
+            "userName"
+        ).textContent =
+            data.user.name;
+
+
+        document.getElementById(
+            "userAvatar"
+        ).textContent =
+            data.user.name
+                .charAt(0)
+                .toUpperCase();
+
+
+    } catch (error) {
+
+        console.error(
+            "User loading error:",
+            error
+        );
+
+        window.location.href =
+            "login.html";
+    }
+
+}
+
+
+
+// =====================================================
+// LOAD CAREERS
+// =====================================================
+
+async function loadCareers() {
+
+    try {
+
+        const search =
+            document.getElementById(
+                "searchInput"
+            ).value.trim();
+
+
+        const category =
+            document.getElementById(
+                "categoryFilter"
+            ).value;
+
+
+        const params =
+            new URLSearchParams();
+
+
+        if (search) {
+
+            params.append(
+                "search",
+                search
+            );
+
+        }
+
+
+        if (category) {
+
+            params.append(
+                "category",
+                category
+            );
+
+        }
+
+
+        const response =
+            await fetch(
+                "/api/careers?" +
+                params.toString(),
+                {
+                    method: "GET",
+                    credentials: "include"
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            document.getElementById(
+                "careerCount"
+            ).textContent =
+                "Unable to load careers.";
+
+            return;
+        }
+
+
+        allCareers =
+            data.careers || [];
+
+
+        renderCareers(
+            allCareers
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Career loading error:",
+            error
+        );
+
+        document.getElementById(
+            "careerCount"
+        ).textContent =
+            "Unable to load careers.";
+    }
+
+}
+
+
+
+// =====================================================
+// RENDER CAREERS
+// =====================================================
+
+function renderCareers(careers) {
+
+    const grid =
+        document.getElementById(
+            "careerGrid"
+        );
+
+
+    const count =
+        document.getElementById(
+            "careerCount"
+        );
+
+
+    count.textContent =
+        `${careers.length} career paths available`;
+
+
+    if (
+        careers.length === 0
+    ) {
+
+        grid.innerHTML = `
+
+            <div class="no-careers">
+
+                <div>
+                    🔍
+                </div>
+
+                <h3>
+                    No careers found
+                </h3>
+
+                <p>
+                    Try searching for another
+                    career or skill.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    grid.innerHTML =
+        careers.map(
+            career => `
+
+                <article
+                    class="career-card"
+                >
+
+                    <div
+                        class="career-card-top"
+                    >
+
+                        <div
+                            class="career-icon"
+                        >
+                            ${getCareerIcon(
+                                career.category
+                            )}
+                        </div>
+
+
+                        <button
+                            class="save-icon ${
+                                career.saved
+                                    ? "saved"
+                                    : ""
+                            }"
+                            onclick="toggleSave(
+                                ${career.id},
+                                ${!!career.saved}
+                            )"
+                            title="${
+                                career.saved
+                                    ? "Remove saved career"
+                                    : "Save career"
+                            }"
+                        >
+                            ${
+                                career.saved
+                                    ? "★"
+                                    : "☆"
+                            }
+                        </button>
+
+                    </div>
+
+
+                    <span
+                        class="career-category"
+                    >
+                        ${escapeHTML(
+                            career.category
+                        )}
+                    </span>
+
+
+                    <h3>
+                        ${escapeHTML(
+                            career.title
+                        )}
+                    </h3>
+
+
+                    <p>
+                        ${escapeHTML(
+                            career.description
+                        )}
+                    </p>
+
+
+                    <div
+                        class="career-card-skills"
+                    >
+
+                        ${
+                            String(
+                                career.skills || ""
+                            )
+                            .split(",")
+                            .slice(0, 3)
+                            .map(
+                                skill =>
+                                    `<span>${escapeHTML(
+                                        skill.trim()
+                                    )}</span>`
+                            )
+                            .join("")
+                        }
+
+                    </div>
+
+
+                    <div
+                        class="career-card-footer"
+                    >
+
+                        <span>
+                            📈
+                            ${escapeHTML(
+                                career.growth || ""
+                            )}
+                        </span>
+
+
+                        <button
+                            onclick="openCareerModal(
+                                ${career.id}
+                            )"
+                        >
+                            View Details →
+                        </button>
+
+                    </div>
+
+                </article>
+
+            `
+        )
+        .join("");
+
+}
+
+
+
+// =====================================================
+// ESCAPE HTML
+// =====================================================
+
+function escapeHTML(value) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        value == null
+            ? ""
+            : String(value);
+
+    return div.innerHTML;
+
+}
+
+
+
+// =====================================================
+// CAREER ICON
+// =====================================================
+
+function getCareerIcon(category) {
+
+    const icons = {
+
+        Technology: "💻",
+
+        Data: "📊",
+
+        "Artificial Intelligence":
+            "🤖",
+
+        Cybersecurity: "🔐",
+
+        Design: "🎨",
+
+        Cloud: "☁️",
+
+        Business: "📈",
+
+        Marketing: "📣"
+
+    };
+
+
+    return (
+        icons[category] ||
+        "💼"
+    );
+
+}
+
+
+
+// =====================================================
+// SAVE / REMOVE CAREER
+// =====================================================
+
+async function toggleSave(
+    id,
+    saved
+) {
+
+    try {
+
+        const method =
+            saved
+                ? "DELETE"
+                : "POST";
+
+
+        const response =
+            await fetch(
+                `/api/careers/${id}/save`,
+                {
+                    method,
+                    credentials: "include"
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (data.success) {
+
+            await loadCareers();
+
+
+            if (
+                currentCareer &&
+                currentCareer.id === id
+            ) {
+
+                currentCareer.saved =
+                    !saved;
+
+                updateModalSaveButton();
+
+            }
+
+        } else {
+
+            alert(
+                data.message ||
+                "Unable to update saved career."
+            );
+
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Save career error:",
+            error
+        );
+
+        alert(
+            "Unable to update saved career."
+        );
+
+    }
+
+}
+
+
+
+// =====================================================
+// OPEN MODAL
+// =====================================================
+
+async function openCareerModal(id) {
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/careers/${id}`,
+                {
+                    method: "GET",
+                    credentials: "include"
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            alert(
+                data.message ||
+                "Unable to load career details."
+            );
+
+            return;
+        }
+
+
+        currentCareer =
+            allCareers.find(
+                career =>
+                    career.id === id
+            ) ||
+            data.career;
+
+
+        const career =
+            data.career;
+
+
+        document.getElementById(
+            "modalIcon"
+        ).textContent =
+            getCareerIcon(
+                career.category
+            );
+
+
+        document.getElementById(
+            "modalCategory"
+        ).textContent =
+            career.category;
+
+
+        document.getElementById(
+            "modalTitle"
+        ).textContent =
+            career.title;
+
+
+        document.getElementById(
+            "modalDescription"
+        ).textContent =
+            career.description;
+
+
+        document.getElementById(
+            "modalEducation"
+        ).textContent =
+            career.education ||
+            "Not specified";
+
+
+        document.getElementById(
+            "modalGrowth"
+        ).textContent =
+            career.growth ||
+            "Not specified";
+
+
+        document.getElementById(
+            "modalWorkStyle"
+        ).textContent =
+            career.work_style ||
+            "Not specified";
+
+
+        document.getElementById(
+            "modalSkills"
+        ).innerHTML =
+            String(
+                career.skills || ""
+            )
+            .split(",")
+            .map(
+                skill =>
+                    `<span>${escapeHTML(
+                        skill.trim()
+                    )}</span>`
+            )
+            .join("");
+
+
+        updateModalSaveButton();
+
+
+        document.getElementById(
+            "careerModal"
+        ).classList.add("show");
+
+
+    } catch (error) {
+
+        console.error(
+            "Career details error:",
+            error
+        );
+
+        alert(
+            "Unable to load career details."
+        );
+
+    }
+
+}
+
+
+
+// =====================================================
+// MODAL SAVE BUTTON
+// =====================================================
+
+function updateModalSaveButton() {
+
+    const button =
+        document.getElementById(
+            "modalSaveButton"
+        );
+
+
+    if (!currentCareer) {
+        return;
+    }
+
+
+    button.textContent =
+        currentCareer.saved
+            ? "★ Remove from Saved Careers"
+            : "☆ Save Career";
+
+
+    button.onclick = () => {
+
+        toggleSave(
+            currentCareer.id,
+            !!currentCareer.saved
+        );
+
+    };
+
+}
+
+
+
+// =====================================================
+// CLOSE MODAL
+// =====================================================
+
+function closeCareerModal() {
+
+    document.getElementById(
+        "careerModal"
+    ).classList.remove(
+        "show"
+    );
+
+}
+
+
+
+// =====================================================
+// CLOSE MODAL WHEN CLICKING OUTSIDE
+// =====================================================
+
+document.getElementById(
+    "careerModal"
+).addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target === this
+        ) {
+
+            closeCareerModal();
+
+        }
+
+    }
+);
+
+
+
+// =====================================================
+// LOGOUT
+// =====================================================
+
+async function logoutUser() {
+
+    try {
+
+        await fetch(
+            "/logout",
+            {
+                method: "POST",
+                credentials: "include"
+            }
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Logout error:",
+            error
+        );
+
+    }
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+
+// =====================================================
+// SEARCH EVENTS
+// =====================================================
+
+let searchTimer;
+
+
+document.getElementById(
+    "searchInput"
+).addEventListener(
+    "input",
+    () => {
+
+        clearTimeout(
+            searchTimer
+        );
+
+
+        searchTimer =
+            setTimeout(
+                loadCareers,
+                300
+            );
+
+    }
+);
+
+
+document.getElementById(
+    "categoryFilter"
+).addEventListener(
+    "change",
+    loadCareers
+);
+
+
+
+// =====================================================
+// START
+// =====================================================
+
+loadUser();
+
+loadCareers();
+
+</script>
+
+
+</body>
+
+</html>

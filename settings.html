@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings | AI Career Mentor</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    background: #f4f7fb;
+    color: #1f2937;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 250px;
+    background: #111827;
+    color: white;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 25px 15px;
+    overflow-y: auto;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+    padding: 0 12px 30px;
+}
+
+.logo span {
+    color: #60a5fa;
+}
+
+.menu-title {
+    font-size: 11px;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 12px;
+    margin-top: 8px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    margin: 4px 0;
+    border-radius: 9px;
+    color: #d1d5db;
+    text-decoration: none;
+    font-size: 14px;
+    transition: .2s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: #1f2937;
+    color: white;
+}
+
+.nav-icon {
+    width: 24px;
+    text-align: center;
+    font-size: 17px;
+}
+
+/* MAIN */
+
+.main {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+}
+
+.topbar {
+    height: 72px;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 35px;
+}
+
+.page-title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.user-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background: #2563eb;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.user-name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.content {
+    padding: 30px 35px 50px;
+}
+
+.settings-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 25px;
+    align-items: start;
+}
+
+.card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.04);
+    margin-bottom: 20px;
+}
+
+.card h2 {
+    font-size: 19px;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: #6b7280;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+/* SETTINGS ITEM */
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.setting-item:last-child {
+    border-bottom: none;
+}
+
+.setting-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.setting-description {
+    color: #6b7280;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* TOGGLE */
+
+.switch {
+    position: relative;
+    width: 48px;
+    height: 26px;
+    flex-shrink: 0;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: #d1d5db;
+    border-radius: 20px;
+    transition: .3s;
+}
+
+.slider:before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 3px;
+    top: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: .3s;
+}
+
+.switch input:checked + .slider {
+    background: #2563eb;
+}
+
+.switch input:checked + .slider:before {
+    transform: translateX(22px);
+}
+
+/* SELECT */
+
+select {
+    min-width: 150px;
+    padding: 9px 11px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: white;
+    outline: none;
+}
+
+/* BUTTON */
+
+button {
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 11px 17px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: #2563eb;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #1d4ed8;
+}
+
+.btn-secondary {
+    background: #eef2ff;
+    color: #3730a3;
+}
+
+.btn-danger {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* ACCOUNT CARD */
+
+.account-box {
+    text-align: center;
+}
+
+.account-avatar {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background: #2563eb;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 27px;
+    font-weight: 800;
+    margin: 0 auto 12px;
+}
+
+.account-name {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.account-email {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 4px;
+    word-break: break-word;
+}
+
+.logout {
+    width: 100%;
+    margin-top: 18px;
+}
+
+/* DANGER */
+
+.danger-card {
+    border-color: #fecaca;
+}
+
+.danger-card h2 {
+    color: #b91c1c;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px) {
+    .settings-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width:750px) {
+
+    .sidebar {
+        width: 70px;
+        padding: 20px 8px;
+    }
+
+    .logo {
+        font-size: 0;
+        text-align: center;
+    }
+
+    .logo span {
+        font-size: 20px;
+    }
+
+    .nav-link {
+        justify-content: center;
+        padding: 12px 5px;
+    }
+
+    .nav-link span:not(.nav-icon),
+    .menu-title {
+        display: none;
+    }
+
+    .main {
+        margin-left: 70px;
+        width: calc(100% - 70px);
+    }
+
+    .topbar {
+        padding: 0 15px;
+    }
+
+    .content {
+        padding: 20px 15px;
+    }
+
+    .setting-item {
+        align-items: flex-start;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        Career<span>AI</span>
+    </div>
+
+    <div class="menu-title">Main</div>
+
+    <a href="dashboard.html" class="nav-link">
+        <span class="nav-icon">🏠</span>
+        <span>Dashboard</span>
+    </a>
+
+    <a href="assessment.html" class="nav-link">
+        <span class="nav-icon">📝</span>
+        <span>Assessment</span>
+    </a>
+
+    <a href="careers.html" class="nav-link">
+        <span class="nav-icon">🎯</span>
+        <span>Explore Careers</span>
+    </a>
+
+    <a href="roadmap.html" class="nav-link">
+        <span class="nav-icon">🗺️</span>
+        <span>Career Roadmap</span>
+    </a>
+
+    <div class="menu-title">Career Tools</div>
+
+    <a href="learning.html" class="nav-link">
+        <span class="nav-icon">📚</span>
+        <span>Learning</span>
+    </a>
+
+    <a href="jobs.html" class="nav-link">
+        <span class="nav-icon">💼</span>
+        <span>Jobs & Opportunities</span>
+    </a>
+
+    <a href="resume.html" class="nav-link">
+        <span class="nav-icon">📄</span>
+        <span>Resume Builder</span>
+    </a>
+
+    <a href="interview.html" class="nav-link">
+        <span class="nav-icon">🎤</span>
+        <span>Interview Practice</span>
+    </a>
+
+    <a href="mentor.html" class="nav-link">
+        <span class="nav-icon">🤖</span>
+        <span>AI Mentor</span>
+    </a>
+
+    <div class="menu-title">Account</div>
+
+    <a href="profile.html" class="nav-link">
+        <span class="nav-icon">👤</span>
+        <span>Profile</span>
+    </a>
+
+    <a href="settings.html" class="nav-link active">
+        <span class="nav-icon">⚙️</span>
+        <span>Settings</span>
+    </a>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+<header class="topbar">
+
+    <div class="page-title">
+        Settings
+    </div>
+
+    <div class="user-box">
+
+        <div class="avatar" id="userAvatar">
+            U
+        </div>
+
+        <div class="user-name" id="userName">
+            Loading...
+        </div>
+
+    </div>
+
+</header>
+
+
+<div class="content">
+
+<div class="settings-grid">
+
+<!-- SETTINGS -->
+
+<div>
+
+<div class="card">
+
+    <h2>Preferences</h2>
+
+    <p class="subtitle">
+        Customize your CareerAI experience.
+    </p>
+
+
+    <div class="setting-item">
+
+        <div>
+            <div class="setting-title">
+                Career Recommendations
+            </div>
+
+            <div class="setting-description">
+                Receive personalized career suggestions based on your profile.
+            </div>
+        </div>
+
+        <label class="switch">
+
+            <input
+                type="checkbox"
+                id="recommendations"
+                checked
+                onchange="saveSettings()"
+            >
+
+            <span class="slider"></span>
+
+        </label>
+
+    </div>
+
+
+    <div class="setting-item">
+
+        <div>
+            <div class="setting-title">
+                Learning Reminders
+            </div>
+
+            <div class="setting-description">
+                Get reminders to continue your learning goals.
+            </div>
+        </div>
+
+        <label class="switch">
+
+            <input
+                type="checkbox"
+                id="reminders"
+                checked
+                onchange="saveSettings()"
+            >
+
+            <span class="slider"></span>
+
+        </label>
+
+    </div>
+
+
+    <div class="setting-item">
+
+        <div>
+            <div class="setting-title">
+                Interview Practice Reminders
+            </div>
+
+            <div class="setting-description">
+                Keep your interview preparation consistent.
+            </div>
+        </div>
+
+        <label class="switch">
+
+            <input
+                type="checkbox"
+                id="interviewReminder"
+                checked
+                onchange="saveSettings()"
+            >
+
+            <span class="slider"></span>
+
+        </label>
+
+    </div>
+
+
+    <div class="setting-item">
+
+        <div>
+            <div class="setting-title">
+                Save Progress
+            </div>
+
+            <div class="setting-description">
+                Save your learning, interview and career progress locally.
+            </div>
+        </div>
+
+        <label class="switch">
+
+            <input
+                type="checkbox"
+                id="saveProgress"
+                checked
+                onchange="saveSettings()"
+            >
+
+            <span class="slider"></span>
+
+        </label>
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <h2>Display</h2>
+
+    <p class="subtitle">
+        Choose your preferred display settings.
+    </p>
+
+
+    <div class="setting-item">
+
+        <div>
+
+            <div class="setting-title">
+                Language
+            </div>
+
+            <div class="setting-description">
+                Select the language used by the website.
+            </div>
+
+        </div>
+
+        <select
+            id="language"
+            onchange="saveSettings()"
+        >
+
+            <option value="English">
+                English
+            </option>
+
+            <option value="Hindi">
+                Hindi
+            </option>
+
+            <option value="Marathi">
+                Marathi
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="setting-item">
+
+        <div>
+
+            <div class="setting-title">
+                Theme
+            </div>
+
+            <div class="setting-description">
+                Choose your preferred website theme.
+            </div>
+
+        </div>
+
+        <select
+            id="theme"
+            onchange="changeTheme()"
+        >
+
+            <option value="light">
+                Light
+            </option>
+
+            <option value="dark">
+                Dark
+            </option>
+
+        </select>
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <h2>Career Preferences</h2>
+
+    <p class="subtitle">
+        Tell CareerAI what kind of opportunities interest you.
+    </p>
+
+
+    <div class="setting-item">
+
+        <div>
+
+            <div class="setting-title">
+                Preferred Career
+            </div>
+
+            <div class="setting-description">
+                Used to personalize career suggestions.
+            </div>
+
+        </div>
+
+        <select
+            id="preferredCareer"
+            onchange="saveSettings()"
+        >
+
+            <option value="">
+                Select
+            </option>
+
+            <option>
+                Software Developer
+            </option>
+
+            <option>
+                Web Developer
+            </option>
+
+            <option>
+                Data Analyst
+            </option>
+
+            <option>
+                AI / Machine Learning
+            </option>
+
+            <option>
+                Business Analyst
+            </option>
+
+            <option>
+                UI/UX Designer
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="setting-item">
+
+        <div>
+
+            <div class="setting-title">
+                Preferred Work Mode
+            </div>
+
+            <div class="setting-description">
+                Select the work environment you prefer.
+            </div>
+
+        </div>
+
+        <select
+            id="workMode"
+            onchange="saveSettings()"
+        >
+
+            <option value="">
+                Select
+            </option>
+
+            <option>
+                Remote
+            </option>
+
+            <option>
+                Hybrid
+            </option>
+
+            <option>
+                Office
+            </option>
+
+        </select>
+
+    </div>
+
+</div>
+
+
+<div class="card danger-card">
+
+    <h2>Account Actions</h2>
+
+    <p class="subtitle">
+        Manage your CareerAI account.
+    </p>
+
+    <div class="buttons">
+
+        <button
+            class="btn-secondary"
+            onclick="clearLocalData()"
+        >
+            Clear Saved Data
+        </button>
+
+        <button
+            class="btn-danger"
+            onclick="logout()"
+        >
+            Logout
+        </button>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<!-- ACCOUNT -->
+
+<div>
+
+<div class="card account-box">
+
+    <div
+        class="account-avatar"
+        id="accountAvatar"
+    >
+        U
+    </div>
+
+    <div
+        class="account-name"
+        id="accountName"
+    >
+        Loading...
+    </div>
+
+    <div
+        class="account-email"
+        id="accountEmail"
+    >
+        Loading...
+    </div>
+
+    <button
+        class="btn-primary logout"
+        onclick="logout()"
+    >
+        Logout
+    </button>
+
+</div>
+
+
+<div class="card">
+
+    <h2>Quick Links</h2>
+
+    <p class="subtitle">
+        Continue your career journey.
+    </p>
+
+    <div style="display:grid;gap:9px;">
+
+        <button
+            class="btn-secondary"
+            onclick="window.location.href='profile.html'"
+        >
+            👤 Edit Profile
+        </button>
+
+        <button
+            class="btn-secondary"
+            onclick="window.location.href='resume.html'"
+        >
+            📄 Build Resume
+        </button>
+
+        <button
+            class="btn-secondary"
+            onclick="window.location.href='interview.html'"
+        >
+            🎤 Practice Interview
+        </button>
+
+        <button
+            class="btn-secondary"
+            onclick="window.location.href='mentor.html'"
+        >
+            🤖 Talk to AI Mentor
+        </button>
+
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+
+<script>
+
+/* USER */
+
+async function loadUser() {
+
+    try {
+
+        const response = await fetch("/api/user", {
+            method: "GET",
+            credentials: "include"
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success || !data.user) {
+
+            window.location.href = "login.html";
+            return;
+
+        }
+
+        const user = data.user;
+
+        document.getElementById("userName")
+            .textContent = user.name;
+
+        document.getElementById("userAvatar")
+            .textContent =
+            user.name.charAt(0).toUpperCase();
+
+        document.getElementById("accountName")
+            .textContent = user.name;
+
+        document.getElementById("accountEmail")
+            .textContent = user.email;
+
+        document.getElementById("accountAvatar")
+            .textContent =
+            user.name.charAt(0).toUpperCase();
+
+        loadSettings();
+
+    } catch (error) {
+
+        console.error(error);
+
+        window.location.href = "login.html";
+
+    }
+
+}
+
+
+/* LOAD SETTINGS */
+
+function loadSettings() {
+
+    const saved =
+        localStorage.getItem("careerAISettings");
+
+    if (!saved) {
+        return;
+    }
+
+    try {
+
+        const settings =
+            JSON.parse(saved);
+
+        document.getElementById("recommendations")
+            .checked =
+            settings.recommendations !== false;
+
+        document.getElementById("reminders")
+            .checked =
+            settings.reminders !== false;
+
+        document.getElementById("interviewReminder")
+            .checked =
+            settings.interviewReminder !== false;
+
+        document.getElementById("saveProgress")
+            .checked =
+            settings.saveProgress !== false;
+
+        document.getElementById("language")
+            .value =
+            settings.language || "English";
+
+        document.getElementById("theme")
+            .value =
+            settings.theme || "light";
+
+        document.getElementById("preferredCareer")
+            .value =
+            settings.preferredCareer || "";
+
+        document.getElementById("workMode")
+            .value =
+            settings.workMode || "";
+
+    } catch(error) {
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* SAVE */
+
+function saveSettings() {
+
+    const settings = {
+
+        recommendations:
+            document.getElementById("recommendations").checked,
+
+        reminders:
+            document.getElementById("reminders").checked,
+
+        interviewReminder:
+            document.getElementById("interviewReminder").checked,
+
+        saveProgress:
+            document.getElementById("saveProgress").checked,
+
+        language:
+            document.getElementById("language").value,
+
+        theme:
+            document.getElementById("theme").value,
+
+        preferredCareer:
+            document.getElementById("preferredCareer").value,
+
+        workMode:
+            document.getElementById("workMode").value
+
+    };
+
+
+    localStorage.setItem(
+        "careerAISettings",
+        JSON.stringify(settings)
+    );
+
+}
+
+
+/* THEME */
+
+function changeTheme() {
+
+    const theme =
+        document.getElementById("theme").value;
+
+    saveSettings();
+
+    if (theme === "dark") {
+
+        document.body.style.background =
+            "#111827";
+
+        document.body.style.color =
+            "#f9fafb";
+
+        alert(
+            "Dark theme preference saved. Full dark theme styling can be connected later."
+        );
+
+    } else {
+
+        document.body.style.background =
+            "#f4f7fb";
+
+        document.body.style.color =
+            "#1f2937";
+
+    }
+
+}
+
+
+/* CLEAR LOCAL DATA */
+
+function clearLocalData() {
+
+    const confirmClear =
+        confirm(
+            "This will clear your saved resume, profile, interview progress and settings from this browser. Continue?"
+        );
+
+    if (!confirmClear) {
+        return;
+    }
+
+    localStorage.removeItem("careerAIResume");
+    localStorage.removeItem("careerAIProfile");
+    localStorage.removeItem("careerAISettings");
+    localStorage.removeItem("careerAIQuestionsAnswered");
+    localStorage.removeItem("careerAIBestScore");
+
+    alert(
+        "Saved local data has been cleared."
+    );
+
+    location.reload();
+
+}
+
+
+/* LOGOUT */
+
+async function logout() {
+
+    const confirmLogout =
+        confirm(
+            "Are you sure you want to logout?"
+        );
+
+    if (!confirmLogout) {
+        return;
+    }
+
+    try {
+
+        const response =
+            await fetch("/logout", {
+                method: "POST",
+                credentials: "include"
+            });
+
+        if (response.ok) {
+
+            window.location.href =
+                "login.html";
+
+        } else {
+
+            alert(
+                "Unable to logout. Please try again."
+            );
+
+        }
+
+    } catch(error) {
+
+        console.error(error);
+
+        alert(
+            "Something went wrong while logging out."
+        );
+
+    }
+
+}
+
+
+loadUser();
+
+</script>
+
+</body>
+</html>

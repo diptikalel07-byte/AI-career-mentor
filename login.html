@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Sign In | AI Career Mentor</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f7fb;
+            color: #20204a;
+            min-height: 100vh;
+        }
+
+        .auth-container {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+        }
+
+        /* LEFT */
+
+        .auth-left {
+            width: 50%;
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #211b50,
+                    #493e9c
+                );
+
+            color: white;
+
+            padding:
+                45px
+                clamp(40px, 7vw, 100px);
+
+            position: relative;
+            overflow: hidden;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .auth-left::before {
+            content: "";
+
+            position: absolute;
+
+            width: 550px;
+            height: 550px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.10);
+
+            border-radius: 50%;
+
+            left: -300px;
+            bottom: -220px;
+        }
+
+        .auth-left::after {
+            content: "";
+
+            position: absolute;
+
+            width: 380px;
+            height: 380px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.08);
+
+            border-radius: 50%;
+
+            right: -220px;
+            top: -160px;
+        }
+
+        .auth-brand {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        .auth-logo {
+            width: 45px;
+            height: 45px;
+
+            background: white;
+            color: #4c3da0;
+
+            border-radius: 12px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-weight: 800;
+            font-size: 17px;
+        }
+
+        .auth-brand strong {
+            display: block;
+            font-size: 18px;
+        }
+
+        .auth-brand span {
+            display: block;
+            margin-top: 3px;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .auth-left-content {
+            position: relative;
+            z-index: 2;
+
+            margin-top: auto;
+            margin-bottom: auto;
+
+            max-width: 550px;
+        }
+
+        .auth-badge {
+            display: inline-block;
+
+            padding: 8px 14px;
+
+            background:
+                rgba(255,255,255,0.12);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.15);
+
+            border-radius: 30px;
+
+            font-size: 13px;
+
+            margin-bottom: 22px;
+        }
+
+        .auth-left-content h1 {
+            font-size:
+                clamp(
+                    38px,
+                    4vw,
+                    58px
+                );
+
+            line-height: 1.08;
+
+            margin-bottom: 22px;
+
+            letter-spacing: -1.5px;
+        }
+
+        .auth-left-content > p {
+            font-size: 16px;
+            line-height: 1.7;
+
+            color:
+                rgba(255,255,255,0.78);
+
+            max-width: 480px;
+
+            margin-bottom: 32px;
+        }
+
+        .auth-features {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .auth-features div {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            font-size: 15px;
+
+            color:
+                rgba(255,255,255,0.92);
+        }
+
+        .auth-features span {
+            width: 22px;
+            height: 22px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,0.12);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 12px;
+        }
+
+        /* RIGHT */
+
+        .auth-right {
+            width: 50%;
+            min-height: 100vh;
+
+            background: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding:
+                40px
+                clamp(35px, 7vw, 100px);
+        }
+
+        .auth-form-container {
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .auth-heading {
+            margin-bottom: 28px;
+        }
+
+        .auth-heading h2 {
+            font-size: 31px;
+            color: #20204a;
+
+            margin-bottom: 8px;
+
+            letter-spacing: -0.5px;
+        }
+
+        .auth-heading p {
+            color: #77758a;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* FORM */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            color: #35344f;
+
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            height: 48px;
+
+            padding: 0 14px;
+
+            border:
+                1px solid
+                #dedee8;
+
+            border-radius: 9px;
+
+            outline: none;
+
+            font-size: 14px;
+
+            color: #25243d;
+
+            background: white;
+
+            transition: 0.2s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #6552d9;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(101,82,217,0.10);
+        }
+
+        .form-group input::placeholder {
+            color: #aaa8b7;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 70px;
+        }
+
+        .password-toggle {
+            position: absolute;
+
+            right: 10px;
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            border: none;
+
+            background: transparent;
+
+            color: #5b4bc4;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            padding: 5px;
+        }
+
+        /* ERROR */
+
+        .field-error {
+            display: block;
+
+            color: #d64545;
+
+            font-size: 11px;
+
+            margin-top: 5px;
+
+            min-height: 14px;
+        }
+
+        .input-error {
+            border-color:
+                #d64545 !important;
+
+            background:
+                #fffafa !important;
+        }
+
+        .auth-message {
+            display: none;
+
+            padding: 11px 13px;
+
+            border-radius: 8px;
+
+            margin-bottom: 16px;
+
+            font-size: 13px;
+        }
+
+        .auth-message.error {
+            display: block;
+
+            color: #a72b2b;
+
+            background: #fff1f1;
+
+            border:
+                1px solid
+                #ffd0d0;
+        }
+
+        .auth-message.success {
+            display: block;
+
+            color: #187548;
+
+            background: #edfff5;
+
+            border:
+                1px solid
+                #c3f0d7;
+        }
+
+        /* BUTTON */
+
+        .auth-submit {
+            width: 100%;
+            height: 49px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #5b49c7,
+                    #705de1
+                );
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+
+            box-shadow:
+                0 7px 18px
+                rgba(91,73,199,0.18);
+        }
+
+        .auth-submit:hover {
+            transform:
+                translateY(-1px);
+
+            box-shadow:
+                0 9px 22px
+                rgba(91,73,199,0.25);
+        }
+
+        .auth-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* FOOTER */
+
+        .auth-footer {
+            text-align: center;
+
+            margin-top: 22px;
+
+            font-size: 13px;
+
+            color: #77758a;
+        }
+
+        .auth-footer a {
+            color: #5b49c7;
+
+            font-weight: 700;
+
+            text-decoration: none;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* TABLET */
+
+        @media (max-width: 900px) {
+
+            .auth-left {
+                padding: 35px 40px;
+            }
+
+            .auth-right {
+                padding: 35px 40px;
+            }
+
+            .auth-left-content h1 {
+                font-size: 40px;
+            }
+
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            .auth-container {
+                display: block;
+            }
+
+            .auth-left {
+                width: 100%;
+                min-height: auto;
+
+                padding:
+                    28px 25px 35px;
+            }
+
+            .auth-left-content {
+                margin-top: 45px;
+                margin-bottom: 0;
+            }
+
+            .auth-left-content h1 {
+                font-size: 35px;
+            }
+
+            .auth-left-content > p {
+                font-size: 14px;
+            }
+
+            .auth-features {
+                gap: 10px;
+            }
+
+            .auth-features div {
+                font-size: 13px;
+            }
+
+            .auth-right {
+                width: 100%;
+                min-height: auto;
+
+                padding:
+                    40px 25px 50px;
+            }
+
+            .auth-form-container {
+                max-width: 100%;
+            }
+
+            .auth-heading h2 {
+                font-size: 27px;
+            }
+
+        }
+
+        /* SMALL MOBILE */
+
+        @media (max-width: 420px) {
+
+            .auth-left {
+                padding:
+                    25px 20px 30px;
+            }
+
+            .auth-right {
+                padding:
+                    32px 20px 40px;
+            }
+
+            .auth-left-content h1 {
+                font-size: 31px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="auth-container">
+
+
+    <!-- LEFT SIDE -->
+
+    <section class="auth-left">
+
+        <div class="auth-brand">
+
+            <div class="auth-logo">
+                AI
+            </div>
+
+            <div>
+
+                <strong>
+                    Career Mentor
+                </strong>
+
+                <span>
+                    AI Career Platform
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="auth-left-content">
+
+            <span class="auth-badge">
+                🚀 Welcome Back
+            </span>
+
+
+            <h1>
+                Your career
+                <br>
+                starts here.
+            </h1>
+
+
+            <p>
+
+                Sign in to continue your personalized
+                career journey, explore opportunities
+                and achieve your professional goals.
+
+            </p>
+
+
+            <div class="auth-features">
+
+                <div>
+                    <span>✓</span>
+                    Personalized career recommendations
+                </div>
+
+                <div>
+                    <span>✓</span>
+                    AI-powered career guidance
+                </div>
+
+                <div>
+                    <span>✓</span>
+                    Track your career progress
+                </div>
+
+                <div>
+                    <span>✓</span>
+                    Build professional skills
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RIGHT SIDE -->
+
+    <section class="auth-right">
+
+        <div class="auth-form-container">
+
+
+            <div class="auth-heading">
+
+                <h2>
+                    Welcome back
+                </h2>
+
+                <p>
+                    Sign in to continue to your AI Career Mentor.
+                </p>
+
+            </div>
+
+
+            <form id="loginForm">
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Gmail Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="name@gmail.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                    <small
+                        id="emailError"
+                        class="field-error"
+                    ></small>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            id="togglePassword"
+                            class="password-toggle"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MESSAGE -->
+
+                <div
+                    id="loginMessage"
+                    class="auth-message"
+                ></div>
+
+
+                <!-- BUTTON -->
+
+                <button
+                    type="submit"
+                    id="loginButton"
+                    class="auth-submit"
+                >
+                    Sign In
+                </button>
+
+
+            </form>
+
+
+            <div class="auth-footer">
+
+                Don't have an account?
+
+                <a href="register.html">
+                    Create Account
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+<script>
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const loginForm =
+    document.getElementById("loginForm");
+
+const emailInput =
+    document.getElementById("email");
+
+const passwordInput =
+    document.getElementById("password");
+
+const emailError =
+    document.getElementById("emailError");
+
+const loginMessage =
+    document.getElementById("loginMessage");
+
+const loginButton =
+    document.getElementById("loginButton");
+
+
+/* =========================================
+   EMAIL RULE
+========================================= */
+
+const emailRegex =
+    /^[A-Za-z][A-Za-z0-9]*@gmail\.com$/;
+
+
+/* =========================================
+   EMAIL VALIDATION
+========================================= */
+
+emailInput.addEventListener(
+    "input",
+    function () {
+
+        const email =
+            emailInput.value.trim();
+
+
+        if (!email) {
+
+            emailError.textContent = "";
+
+            emailInput.classList.remove(
+                "input-error"
+            );
+
+            return;
+
+        }
+
+
+        if (!emailRegex.test(email)) {
+
+            emailError.textContent =
+                "Use a Gmail address like name@gmail.com or name123@gmail.com.";
+
+            emailInput.classList.add(
+                "input-error"
+            );
+
+        } else {
+
+            emailError.textContent = "";
+
+            emailInput.classList.remove(
+                "input-error"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   SHOW / HIDE PASSWORD
+========================================= */
+
+document
+    .getElementById("togglePassword")
+    .addEventListener(
+        "click",
+        function () {
+
+            if (
+                passwordInput.type ===
+                "password"
+            ) {
+
+                passwordInput.type =
+                    "text";
+
+                this.textContent =
+                    "Hide";
+
+            } else {
+
+                passwordInput.type =
+                    "password";
+
+                this.textContent =
+                    "Show";
+
+            }
+
+        }
+    );
+
+
+/* =========================================
+   LOGIN
+========================================= */
+
+loginForm.addEventListener(
+    "submit",
+    async function (event) {
+
+        event.preventDefault();
+
+
+        const email =
+            emailInput.value.trim().toLowerCase();
+
+        const password =
+            passwordInput.value;
+
+
+        /* VALIDATE EMAIL */
+
+        if (!emailRegex.test(email)) {
+
+            emailError.textContent =
+                "Use a Gmail address like name@gmail.com or name123@gmail.com.";
+
+            emailInput.classList.add(
+                "input-error"
+            );
+
+            emailInput.focus();
+
+            return;
+
+        }
+
+
+        emailError.textContent = "";
+
+        emailInput.classList.remove(
+            "input-error"
+        );
+
+
+        /* CLEAR OLD MESSAGE */
+
+        loginMessage.textContent = "";
+
+        loginMessage.className =
+            "auth-message";
+
+
+        /* DISABLE BUTTON */
+
+        loginButton.disabled = true;
+
+        loginButton.textContent =
+            "Signing in...";
+
+
+        try {
+
+
+            const response =
+                await fetch(
+                    "/login",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify({
+                                email: email,
+                                password: password
+                            })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            /* LOGIN FAILED */
+
+            if (!response.ok || !data.success) {
+
+                loginMessage.textContent =
+                    data.message ||
+                    "Email or password is incorrect.";
+
+                loginMessage.className =
+                    "auth-message error";
+
+                loginButton.disabled = false;
+
+                loginButton.textContent =
+                    "Sign In";
+
+                return;
+
+            }
+
+
+            /* LOGIN SUCCESS */
+
+            loginMessage.textContent =
+                "Login successful! Opening your dashboard...";
+
+            loginMessage.className =
+                "auth-message success";
+
+
+            /*
+                IMPORTANT:
+                Wait briefly so the session is
+                completely established, then
+                redirect to dashboard.
+            */
+
+            setTimeout(
+                function () {
+
+                    window.location.replace(
+                        "/dashboard.html"
+                    );
+
+                },
+                500
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Login error:",
+                error
+            );
+
+
+            loginMessage.textContent =
+                "Cannot connect to the server. Make sure node server.js is running.";
+
+            loginMessage.className =
+                "auth-message error";
+
+
+            loginButton.disabled = false;
+
+            loginButton.textContent =
+                "Sign In";
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

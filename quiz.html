@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Quiz | AI Career Mentor</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+        .topbar {
+            height: 70px;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 35px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .brand {
+            color: #4f46e5;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #4f46e5;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .layout {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #111827;
+            color: white;
+            padding: 25px 15px;
+            flex-shrink: 0;
+        }
+
+        .sidebar h3 {
+            color: #9ca3af;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin: 10px 15px 15px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #d1d5db;
+            text-decoration: none;
+            padding: 13px 15px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+        }
+
+        .sidebar a:hover {
+            background: #1f2937;
+            color: white;
+        }
+
+        .sidebar a.active {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .main {
+            flex: 1;
+            width: 100%;
+            max-width: 1100px;
+            margin: auto;
+            padding: 35px;
+        }
+
+        .back-btn {
+            border: none;
+            background: transparent;
+            color: #4f46e5;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .quiz-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 32px;
+            border-radius: 18px;
+            margin-bottom: 25px;
+        }
+
+        .quiz-header h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .quiz-header p {
+            color: #e0e7ff;
+            line-height: 1.6;
+        }
+
+        .quiz-info {
+            display: flex;
+            gap: 25px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .quiz-info span {
+            background: rgba(255,255,255,0.15);
+            padding: 8px 13px;
+            border-radius: 7px;
+            font-size: 13px;
+        }
+
+        .question-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            padding: 28px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.04);
+        }
+
+        .question-number {
+            color: #4f46e5;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .question {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            display: block;
+            border: 1px solid #d1d5db;
+            border-radius: 9px;
+            padding: 14px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .option:hover {
+            background: #f5f7ff;
+            border-color: #6366f1;
+        }
+
+        .option input {
+            margin-right: 10px;
+            accent-color: #4f46e5;
+        }
+
+        .submit-area {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .submit-btn {
+            border: none;
+            background: #4f46e5;
+            color: white;
+            padding: 14px 35px;
+            border-radius: 9px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #4338ca;
+        }
+
+        .result {
+            display: none;
+            background: white;
+            border-radius: 18px;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.06);
+        }
+
+        .result-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .result h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .score {
+            font-size: 48px;
+            font-weight: 800;
+            color: #4f46e5;
+            margin: 15px 0;
+        }
+
+        .result-message {
+            color: #6b7280;
+            margin-bottom: 25px;
+        }
+
+        .result-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .result-btn {
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .primary {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .secondary {
+            background: #eef2f7;
+            color: #374151;
+        }
+
+        .review {
+            display: none;
+            margin-top: 25px;
+            text-align: left;
+        }
+
+        .review h3 {
+            margin-bottom: 15px;
+        }
+
+        .review-item {
+            padding: 15px;
+            border-radius: 9px;
+            margin-bottom: 10px;
+        }
+
+        .correct {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+        }
+
+        .wrong {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+        }
+
+        @media (max-width: 850px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                padding: 20px;
+            }
+
+            .quiz-header h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="brand">
+        AI Career Mentor
+    </div>
+
+    <div class="user-area">
+        <span id="userName">Student</span>
+
+        <div class="avatar" id="userAvatar">
+            S
+        </div>
+    </div>
+
+</header>
+
+
+<div class="layout">
+
+    <aside class="sidebar">
+
+        <h3>Career Mentor</h3>
+
+        <a href="dashboard.html">🏠 Dashboard</a>
+        <a href="assessment.html">🎯 Assessment</a>
+        <a href="careers.html">💼 Careers</a>
+        <a href="learning.html" class="active">📚 Learning</a>
+        <a href="roadmap.html">🗺️ Roadmap</a>
+        <a href="mentor.html">🤖 AI Mentor</a>
+        <a href="resume.html">📄 Resume</a>
+        <a href="interview.html">🎤 Interview</a>
+        <a href="jobs.html">🔎 Jobs</a>
+        <a href="applications.html">📋 Applications</a>
+
+        <h3 style="margin-top:25px;">Account</h3>
+
+        <a href="profile.html">👤 Profile</a>
+        <a href="settings.html">⚙️ Settings</a>
+
+    </aside>
+
+
+    <main class="main">
+
+        <button class="back-btn" onclick="goBack()">
+            ← Back to Course
+        </button>
+
+
+        <section class="quiz-header">
+
+            <h1 id="quizTitle">
+                Course Quiz
+            </h1>
+
+            <p id="quizDescription">
+                Test your understanding of the course.
+            </p>
+
+            <div class="quiz-info">
+
+                <span>📝 10 Questions</span>
+
+                <span>⏱️ No Time Limit</span>
+
+                <span>🎯 Multiple Choice</span>
+
+            </div>
+
+        </section>
+
+
+        <div id="quizContainer"></div>
+
+
+        <div class="submit-area" id="submitArea">
+
+            <button
+                class="submit-btn"
+                onclick="submitQuiz()">
+
+                Submit Quiz
+
+            </button>
+
+        </div>
+
+
+        <section class="result" id="result">
+
+            <div class="result-icon" id="resultIcon">
+                🎉
+            </div>
+
+            <h2 id="resultTitle">
+                Quiz Completed!
+            </h2>
+
+            <div class="score" id="score">
+                0/10
+            </div>
+
+            <p class="result-message" id="resultMessage">
+                Great work!
+            </p>
+
+
+            <div class="result-buttons">
+
+                <button
+                    class="result-btn primary"
+                    onclick="retakeQuiz()">
+
+                    🔄 Retake Quiz
+
+                </button>
+
+
+                <button
+                    class="result-btn secondary"
+                    onclick="goLearning()">
+
+                    📚 Back to Learning
+
+                </button>
+
+            </div>
+
+
+            <div class="review" id="review">
+
+                <h3>
+                    Answer Review
+                </h3>
+
+                <div id="reviewList"></div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   AUTHENTICATION
+===================================================== */
+
+async function checkUser() {
+
+    try {
+
+        const response = await fetch(
+            "/api/user",
+            {
+                method: "GET",
+                credentials: "include"
+            }
+        );
+
+        const data = await response.json();
+
+        if (
+            !response.ok ||
+            !data.success ||
+            !data.user
+        ) {
+
+            window.location.href = "login.html";
+
+            return;
+
+        }
+
+        const name =
+            data.user.name || "Student";
+
+        document.getElementById(
+            "userName"
+        ).textContent = name;
+
+        document.getElementById(
+            "userAvatar"
+        ).textContent =
+            name.charAt(0).toUpperCase();
+
+    } catch (error) {
+
+        console.error(error);
+
+        window.location.href =
+            "login.html";
+
+    }
+
+}
+
+
+/* =====================================================
+   COURSE FROM URL
+===================================================== */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const courseName =
+    params.get("course") ||
+    "Python Programming";
+
+
+/* =====================================================
+   QUIZ DATA
+===================================================== */
+
+const quizData = {
+
+    "Python Programming": [
+
+        {
+            question:
+                "Which programming language is Python?",
+            options: [
+                "Programming language",
+                "Database",
+                "Operating system",
+                "Web browser"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which function is commonly used to display output in Python?",
+            options: [
+                "display()",
+                "print()",
+                "show()",
+                "output()"
+            ],
+            answer: 1
+        },
+
+        {
+            question:
+                "Which symbol is commonly used to assign a value to a variable?",
+            options: [
+                "=",
+                "==",
+                ":=",
+                "=>"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which keyword is used for a condition in Python?",
+            options: [
+                "if",
+                "when",
+                "condition",
+                "check"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which keyword is used to define a function?",
+            options: [
+                "function",
+                "define",
+                "def",
+                "fun"
+            ],
+            answer: 2
+        },
+
+        {
+            question:
+                "Which of these is a Python data type?",
+            options: [
+                "String",
+                "Browser",
+                "Website",
+                "Server"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "What are loops mainly used for?",
+            options: [
+                "Repeating code",
+                "Deleting programs",
+                "Creating folders",
+                "Opening browsers"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which loop is available in Python?",
+            options: [
+                "for",
+                "repeat-only",
+                "loop-only",
+                "each-only"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Python is widely used in which field?",
+            options: [
+                "Artificial Intelligence",
+                "Only gaming",
+                "Only typing",
+                "None"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which extension is commonly used for Python files?",
+            options: [
+                ".html",
+                ".css",
+                ".py",
+                ".java"
+            ],
+            answer: 2
+        }
+
+    ],
+
+
+    "HTML & CSS": [
+
+        {
+            question:
+                "What does HTML stand for?",
+            options: [
+                "HyperText Markup Language",
+                "HighText Machine Language",
+                "Hyper Transfer Mark Language",
+                "Home Tool Markup Language"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "What is HTML mainly used for?",
+            options: [
+                "Webpage structure",
+                "Database storage",
+                "Operating systems",
+                "Computer hardware"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which tag is commonly used for the largest heading?",
+            options: [
+                "<h1>",
+                "<head>",
+                "<heading>",
+                "<title>"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "What does CSS control?",
+            options: [
+                "Webpage appearance",
+                "Database records",
+                "Computer memory",
+                "Operating system"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "What does CSS stand for?",
+            options: [
+                "Cascading Style Sheets",
+                "Computer Style System",
+                "Creative Style Syntax",
+                "Coded Style Sheets"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which CSS property changes text color?",
+            options: [
+                "font-color",
+                "text-color",
+                "color",
+                "foreground"
+            ],
+            answer: 2
+        },
+
+        {
+            question:
+                "Which HTML element creates a paragraph?",
+            options: [
+                "<p>",
+                "<para>",
+                "<text>",
+                "<paragraph>"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which CSS layout system is useful for flexible layouts?",
+            options: [
+                "Flexbox",
+                "HTML",
+                "SQL",
+                "Python"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Responsive design helps websites work on:",
+            options: [
+                "Different screen sizes",
+                "Only desktops",
+                "Only phones",
+                "Only tablets"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which file extension is commonly used for CSS?",
+            options: [
+                ".html",
+                ".css",
+                ".js",
+                ".py"
+            ],
+            answer: 1
+        }
+
+    ],
+
+
+    "JavaScript": [
+
+        {
+            question:
+                "JavaScript is mainly used to make websites:",
+            options: [
+                "Interactive",
+                "Printed",
+                "Offline only",
+                "Physical"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which command can print information to the console?",
+            options: [
+                "console.log()",
+                "print.console()",
+                "console.print()",
+                "log.console()"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which keyword can declare a variable?",
+            options: [
+                "let",
+                "variable",
+                "make",
+                "create"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which keyword creates a constant?",
+            options: [
+                "constant",
+                "const",
+                "fixed",
+                "static"
+            ],
+            answer: 1
+        },
+
+        {
+            question:
+                "What is a function?",
+            options: [
+                "Reusable block of code",
+                "Database",
+                "Web browser",
+                "Computer screen"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "What does DOM stand for?",
+            options: [
+                "Document Object Model",
+                "Data Object Machine",
+                "Digital Output Model",
+                "Document Order Method"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which event occurs when a user presses a button?",
+            options: [
+                "click",
+                "load-only",
+                "press-page",
+                "button-run"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which language is JavaScript commonly used with?",
+            options: [
+                "HTML",
+                "SQL only",
+                "Python only",
+                "C only"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which symbol is commonly used to end a JavaScript statement?",
+            options: [
+                ";",
+                "#",
+                "@",
+                "%"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "JavaScript can be used to change:",
+            options: [
+                "HTML content",
+                "Only hardware",
+                "Only files",
+                "Nothing"
+            ],
+            answer: 0
+        }
+
+    ],
+
+
+    "AI & Machine Learning": [
+
+        {
+            question:
+                "What does AI stand for?",
+            options: [
+                "Artificial Intelligence",
+                "Automatic Internet",
+                "Advanced Input",
+                "Artificial Internet"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "What is machine learning?",
+            options: [
+                "Learning patterns from data",
+                "Creating hardware",
+                "Designing websites only",
+                "Writing documents"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which is a type of machine learning?",
+            options: [
+                "Supervised Learning",
+                "Web Learning",
+                "Browser Learning",
+                "Screen Learning"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which type of learning uses labelled data?",
+            options: [
+                "Supervised learning",
+                "Unsupervised learning",
+                "Random learning",
+                "Manual learning"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "What is training data?",
+            options: [
+                "Data used to train a model",
+                "Computer password",
+                "Website design",
+                "Operating system"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which is an AI application?",
+            options: [
+                "Chatbot",
+                "Chair",
+                "Keyboard",
+                "Notebook"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which career can involve machine learning?",
+            options: [
+                "Machine Learning Engineer",
+                "Only cashier",
+                "Only driver",
+                "None"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "What does a model learn from?",
+            options: [
+                "Data",
+                "Furniture",
+                "Buildings",
+                "Paper"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which is another type of machine learning?",
+            options: [
+                "Unsupervised Learning",
+                "Website Learning",
+                "Keyboard Learning",
+                "Screen Learning"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "AI systems can be used for:",
+            options: [
+                "Prediction and decision support",
+                "Only printing",
+                "Only typing",
+                "Nothing"
+            ],
+            answer: 0
+        }
+
+    ],
+
+
+    "Data Analytics": [
+
+        {
+            question:
+                "What is data analytics?",
+            options: [
+                "Examining data for useful information",
+                "Designing computers",
+                "Building houses",
+                "Writing novels"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which tool is commonly used for data analysis?",
+            options: [
+                "Excel",
+                "Paint only",
+                "Calculator only",
+                "Browser only"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which is a type of data?",
+            options: [
+                "Numerical data",
+                "Keyboard data",
+                "Screen data",
+                "Mouse data"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "What is data visualization?",
+            options: [
+                "Representing data using charts and graphs",
+                "Deleting data",
+                "Printing data only",
+                "Hiding data"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which is a common chart?",
+            options: [
+                "Bar chart",
+                "Keyboard chart",
+                "Computer chart",
+                "File chart"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "What is one step in data analytics?",
+            options: [
+                "Cleaning data",
+                "Breaking computers",
+                "Deleting software",
+                "Changing hardware"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "What can data analysts help organizations do?",
+            options: [
+                "Make informed decisions",
+                "Build roads",
+                "Repair cars",
+                "Print books"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which skill is useful for data analysts?",
+            options: [
+                "SQL",
+                "Painting",
+                "Cooking",
+                "Driving"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which chart is useful for showing change over time?",
+            options: [
+                "Line chart",
+                "Keyboard chart",
+                "Text chart",
+                "Folder chart"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Data analysis can help identify:",
+            options: [
+                "Patterns and trends",
+                "Only colors",
+                "Only fonts",
+                "Nothing"
+            ],
+            answer: 0
+        }
+
+    ],
+
+
+    "Career & Soft Skills": [
+
+        {
+            question:
+                "Good communication helps you:",
+            options: [
+                "Express ideas clearly",
+                "Avoid all people",
+                "Ignore teamwork",
+                "Avoid learning"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which is an important communication skill?",
+            options: [
+                "Active listening",
+                "Ignoring others",
+                "Interrupting everyone",
+                "Avoiding communication"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Teamwork means:",
+            options: [
+                "Working together toward a goal",
+                "Working alone always",
+                "Ignoring team members",
+                "Avoiding responsibility"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "What is problem solving?",
+            options: [
+                "Finding solutions to problems",
+                "Ignoring problems",
+                "Creating problems",
+                "Avoiding decisions"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Time management helps you:",
+            options: [
+                "Organize tasks",
+                "Waste time",
+                "Avoid deadlines",
+                "Ignore priorities"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which is useful before an interview?",
+            options: [
+                "Practising common questions",
+                "Ignoring the job",
+                "Avoiding preparation",
+                "Not reading your resume"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Why should you research a company before an interview?",
+            options: [
+                "To understand the company",
+                "To avoid answering questions",
+                "To skip preparation",
+                "For no reason"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Which is a professional skill?",
+            options: [
+                "Communication",
+                "Ignoring deadlines",
+                "Avoiding teamwork",
+                "Being unreliable"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "A good team member should:",
+            options: [
+                "Respect other opinions",
+                "Ignore everyone",
+                "Avoid responsibility",
+                "Never communicate"
+            ],
+            answer: 0
+        },
+
+        {
+            question:
+                "Preparing your introduction is useful for:",
+            options: [
+                "Interviews",
+                "Gaming",
+                "Watching movies",
+                "Nothing"
+            ],
+            answer: 0
+        }
+
+    ]
+
+};
+
+
+/* =====================================================
+   CURRENT QUESTIONS
+===================================================== */
+
+let questions =
+    quizData[courseName] ||
+    quizData["Python Programming"];
+
+
+/* =====================================================
+   DISPLAY COURSE
+===================================================== */
+
+document.getElementById(
+    "quizTitle"
+).textContent =
+    courseName + " Quiz";
+
+
+document.getElementById(
+    "quizDescription"
+).textContent =
+    "Test your understanding of " +
+    courseName +
+    " and see how well you have learned the course.";
+
+
+/* =====================================================
+   CREATE QUESTIONS
+===================================================== */
+
+function createQuiz() {
+
+    const container =
+        document.getElementById(
+            "quizContainer"
+        );
+
+    container.innerHTML = "";
+
+
+    questions.forEach(
+        (item, index) => {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+            card.className =
+                "question-card";
+
+
+            let optionsHTML = "";
+
+
+            item.options.forEach(
+                (option, optionIndex) => {
+
+                    optionsHTML += `
+
+                        <label class="option">
+
+                            <input
+                                type="radio"
+                                name="question${index}"
+                                value="${optionIndex}">
+
+                            ${option}
+
+                        </label>
+
+                    `;
+
+                }
+            );
+
+
+            card.innerHTML = `
+
+                <div class="question-number">
+
+                    Question ${index + 1}
+                    of ${questions.length}
+
+                </div>
+
+                <div class="question">
+
+                    ${item.question}
+
+                </div>
+
+                <div>
+
+                    ${optionsHTML}
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   SUBMIT QUIZ
+===================================================== */
+
+function submitQuiz() {
+
+    let score = 0;
+
+    let answered = 0;
+
+    const review = [];
+
+
+    questions.forEach(
+        (item, index) => {
+
+            const selected =
+                document.querySelector(
+                    `input[name="question${index}"]:checked`
+                );
+
+
+            if (selected) {
+
+                answered++;
+
+                const selectedAnswer =
+                    Number(
+                        selected.value
+                    );
+
+
+                if (
+                    selectedAnswer ===
+                    item.answer
+                ) {
+
+                    score++;
+
+                    review.push({
+                        question:
+                            item.question,
+
+                        correct: true,
+
+                        selected:
+                            item.options[
+                                selectedAnswer
+                            ],
+
+                        answer:
+                            item.options[
+                                item.answer
+                            ]
+                    });
+
+                } else {
+
+                    review.push({
+                        question:
+                            item.question,
+
+                        correct: false,
+
+                        selected:
+                            item.options[
+                                selectedAnswer
+                            ],
+
+                        answer:
+                            item.options[
+                                item.answer
+                            ]
+                    });
+
+                }
+
+            } else {
+
+                review.push({
+                    question:
+                        item.question,
+
+                    correct: false,
+
+                    selected:
+                        "Not answered",
+
+                    answer:
+                        item.options[
+                            item.answer
+                        ]
+                });
+
+            }
+
+        }
+    );
+
+
+    if (answered < questions.length) {
+
+        alert(
+            "Please answer all " +
+            questions.length +
+            " questions before submitting."
+        );
+
+        return;
+
+    }
+
+
+    showResult(
+        score,
+        review
+    );
+
+}
+
+
+/* =====================================================
+   SHOW RESULT
+===================================================== */
+
+function showResult(
+    score,
+    review
+) {
+
+    document.getElementById(
+        "quizContainer"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "submitArea"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "result"
+    ).style.display = "block";
+
+
+    document.getElementById(
+        "score"
+    ).textContent =
+        score + "/" + questions.length;
+
+
+    const percentage =
+        Math.round(
+            (score / questions.length) * 100
+        );
+
+
+    const resultIcon =
+        document.getElementById(
+            "resultIcon"
+        );
+
+
+    const resultTitle =
+        document.getElementById(
+            "resultTitle"
+        );
+
+
+    const resultMessage =
+        document.getElementById(
+            "resultMessage"
+        );
+
+
+    if (percentage >= 80) {
+
+        resultIcon.textContent =
+            "🏆";
+
+        resultTitle.textContent =
+            "Excellent Work!";
+
+        resultMessage.textContent =
+            "You have demonstrated a strong understanding of this course.";
+
+    } else if (percentage >= 60) {
+
+        resultIcon.textContent =
+            "🎉";
+
+        resultTitle.textContent =
+            "Good Job!";
+
+        resultMessage.textContent =
+            "You have a good understanding, but there is still room to improve.";
+
+    } else {
+
+        resultIcon.textContent =
+            "📚";
+
+        resultTitle.textContent =
+            "Keep Learning!";
+
+        resultMessage.textContent =
+            "Review the lessons and try the quiz again to improve your score.";
+
+    }
+
+
+    saveBestScore(score);
+
+
+    showReview(review);
+
+}
+
+
+/* =====================================================
+   SAVE BEST SCORE
+===================================================== */
+
+function saveBestScore(score) {
+
+    const key =
+        "careerAIBestScore_" +
+        courseName;
+
+
+    const oldScore =
+        Number(
+            localStorage.getItem(key) ||
+            0
+        );
+
+
+    if (score > oldScore) {
+
+        localStorage.setItem(
+            key,
+            score
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   ANSWER REVIEW
+===================================================== */
+
+function showReview(review) {
+
+    const reviewSection =
+        document.getElementById(
+            "review"
+        );
+
+
+    const reviewList =
+        document.getElementById(
+            "reviewList"
+        );
+
+
+    reviewList.innerHTML = "";
+
+
+    review.forEach(
+        (item, index) => {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "review-item " +
+                (
+                    item.correct
+                        ? "correct"
+                        : "wrong"
+                );
+
+
+            div.innerHTML = `
+
+                <strong>
+                    ${index + 1}. ${item.question}
+                </strong>
+
+                <br><br>
+
+                Your answer:
+                ${item.selected}
+
+                <br>
+
+                Correct answer:
+                ${item.answer}
+
+            `;
+
+
+            reviewList.appendChild(
+                div
+            );
+
+        }
+    );
+
+
+    reviewSection.style.display =
+        "block";
+
+}
+
+
+/* =====================================================
+   RETAKE
+===================================================== */
+
+function retakeQuiz() {
+
+    window.location.reload();
+
+}
+
+
+/* =====================================================
+   BACK TO COURSE
+===================================================== */
+
+function goBack() {
+
+    window.location.href =
+        "course.html?course=" +
+        encodeURIComponent(
+            courseName
+        );
+
+}
+
+
+/* =====================================================
+   BACK TO LEARNING
+===================================================== */
+
+function goLearning() {
+
+    window.location.href =
+        "learning.html";
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+checkUser();
+
+createQuiz();
+
+</script>
+
+</body>
+</html>

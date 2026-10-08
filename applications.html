@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Applications | CareerMentor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+<aside class="sidebar">
+
+    <div class="sidebar-logo">
+        <div class="logo-mark">AI</div>
+
+        <div>
+            <h2>CareerMentor</h2>
+            <span>AI Career Guidance</span>
+        </div>
+    </div>
+
+    <nav class="sidebar-nav">
+
+        <p class="nav-title">MAIN</p>
+
+        <a href="dashboard.html" class="nav-link">
+            <span>⌂</span> Dashboard
+        </a>
+
+        <a href="careers.html" class="nav-link">
+            <span>◈</span> Career Explorer
+        </a>
+
+        <a href="assessment.html" class="nav-link">
+            <span>✓</span> Skill Assessment
+        </a>
+
+        <a href="roadmap.html" class="nav-link">
+            <span>◎</span> Career Roadmap
+        </a>
+
+        <p class="nav-title">CAREER TOOLS</p>
+
+        <a href="mentor.html" class="nav-link">
+            <span>✦</span> AI Mentor
+        </a>
+
+        <a href="resume.html" class="nav-link">
+            <span>▤</span> Resume Builder
+        </a>
+
+        <a href="interview.html" class="nav-link">
+            <span>◉</span> Interview Prep
+        </a>
+
+        <a href="jobs.html" class="nav-link">
+            <span>▣</span> Job Opportunities
+        </a>
+
+        <a href="applications.html" class="nav-link active">
+            <span>✓</span> My Applications
+        </a>
+
+        <p class="nav-title">ACCOUNT</p>
+
+        <a href="learning.html" class="nav-link">
+            <span>📚</span> Learning Hub
+        </a>
+
+        <a href="profile.html" class="nav-link">
+            <span>◯</span> My Profile
+        </a>
+
+        <a href="settings.html" class="nav-link">
+            <span>⚙</span> Settings
+        </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+        <button id="logoutBtn" class="logout-button">
+            ⇥ Logout
+        </button>
+
+    </div>
+
+</aside>
+
+
+<main class="main-content">
+
+<header class="topbar">
+
+    <div>
+        <h1>My Applications</h1>
+        <p>Track your career opportunities in one place.</p>
+    </div>
+
+    <div class="user-mini">
+
+        <div class="user-avatar" id="userAvatar">
+            U
+        </div>
+
+        <div>
+            <strong id="userName">User</strong>
+            <small>Career Explorer</small>
+        </div>
+
+    </div>
+
+</header>
+
+
+<section class="applications-page">
+
+    <div class="application-summary">
+
+        <div>
+            <span>Total Applications</span>
+            <strong>4</strong>
+        </div>
+
+        <div>
+            <span>Interviews</span>
+            <strong>2</strong>
+        </div>
+
+        <div>
+            <span>Offers</span>
+            <strong>1</strong>
+        </div>
+
+        <div>
+            <span>Pending</span>
+            <strong>2</strong>
+        </div>
+
+    </div>
+
+
+    <div class="applications-card">
+
+        <div class="applications-header">
+
+            <h2>Application Tracker</h2>
+
+            <button onclick="addApplication()">
+                + Add Application
+            </button>
+
+        </div>
+
+
+        <div class="application-list" id="applicationList">
+
+            <div class="application-item">
+
+                <div class="application-company">
+                    T
+                </div>
+
+                <div class="application-details">
+
+                    <h3>Junior Software Developer</h3>
+
+                    <p>
+                        Tech Solutions · Pune
+                    </p>
+
+                </div>
+
+                <span class="application-status interview">
+                    Interview
+                </span>
+
+            </div>
+
+
+            <div class="application-item">
+
+                <div class="application-company">
+                    D
+                </div>
+
+                <div class="application-details">
+
+                    <h3>Web Developer Intern</h3>
+
+                    <p>
+                        Digital Labs · Remote
+                    </p>
+
+                </div>
+
+                <span class="application-status pending">
+                    Pending
+                </span>
+
+            </div>
+
+
+            <div class="application-item">
+
+                <div class="application-company">
+                    A
+                </div>
+
+                <div class="application-details">
+
+                    <h3>Data Analyst Intern</h3>
+
+                    <p>
+                        Analytics Hub · Mumbai
+                    </p>
+
+                </div>
+
+                <span class="application-status applied">
+                    Applied
+                </span>
+
+            </div>
+
+
+            <div class="application-item">
+
+                <div class="application-company">
+                    C
+                </div>
+
+                <div class="application-details">
+
+                    <h3>UI/UX Design Intern</h3>
+
+                    <p>
+                        Creative Studio · Remote
+                    </p>
+
+                </div>
+
+                <span class="application-status offer">
+                    Offer
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+</div>
+
+
+<script>
+
+function addApplication() {
+
+    const title =
+        prompt("Enter job title:");
+
+    if (!title) return;
+
+    const company =
+        prompt("Enter company name:");
+
+    if (!company) return;
+
+    const list =
+        document.getElementById("applicationList");
+
+    const item =
+        document.createElement("div");
+
+    item.className =
+        "application-item";
+
+    item.innerHTML = `
+
+        <div class="application-company">
+            ${company.charAt(0).toUpperCase()}
+        </div>
+
+        <div class="application-details">
+
+            <h3>${title}</h3>
+
+            <p>
+                ${company}
+            </p>
+
+        </div>
+
+        <span class="application-status applied">
+            Applied
+        </span>
+
+    `;
+
+    list.prepend(item);
+
+}
+
+
+async function loadUser() {
+
+    const response =
+        await fetch("/api/user");
+
+    if (!response.ok) {
+
+        window.location.href = "login.html";
+        return;
+
+    }
+
+    const data =
+        await response.json();
+
+    if (data.user) {
+
+        document.getElementById("userName")
+            .textContent = data.user.name;
+
+        document.getElementById("userAvatar")
+            .textContent =
+            data.user.name.charAt(0).toUpperCase();
+
+    }
+
+}
+
+
+document.getElementById("logoutBtn")
+.addEventListener("click", async () => {
+
+    await fetch("/logout", {
+        method: "POST"
+    });
+
+    window.location.href = "login.html";
+
+});
+
+
+loadUser();
+
+</script>
+
+</body>
+</html>

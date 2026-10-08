@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Skill Assessment | AI Career Mentor</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .assessment-intro {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #eef2ff, #ffffff);
+            border: 1px solid #e5e7eb;
+        }
+
+        .hero-label {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #6366f1;
+            margin-bottom: 10px;
+        }
+
+        .assessment-intro h2 {
+            margin: 0 0 10px;
+            font-size: 32px;
+            color: #111827;
+        }
+
+        .assessment-intro h2 strong {
+            color: #6366f1;
+        }
+
+        .assessment-intro p {
+            max-width: 650px;
+            color: #6b7280;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .assessment-progress {
+            text-align: center;
+            min-width: 130px;
+        }
+
+        .progress-circle {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            background: #6366f1;
+            color: white;
+            font-size: 22px;
+            font-weight: 700;
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25);
+        }
+
+        .assessment-progress small {
+            display: block;
+            margin-top: 10px;
+            color: #6b7280;
+        }
+
+        .assessment-card,
+        .assessment-result {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+        }
+
+        .assessment-result {
+            display: none;
+        }
+
+        .assessment-result.show {
+            display: block;
+        }
+
+        .question-number {
+            font-size: 14px;
+            font-weight: 700;
+            color: #6366f1;
+            margin-bottom: 15px;
+        }
+
+        #questionText {
+            font-size: 25px;
+            color: #111827;
+            margin-bottom: 25px;
+        }
+
+        .answer-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .answer-option {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px;
+            border: 2px solid #e5e7eb;
+            border-radius: 14px;
+            background: white;
+            cursor: pointer;
+            text-align: left;
+            font-size: 15px;
+            transition: 0.2s ease;
+        }
+
+        .answer-option:hover {
+            border-color: #6366f1;
+            background: #f8f7ff;
+            transform: translateY(-2px);
+        }
+
+        .answer-option.selected {
+            border-color: #6366f1;
+            background: #eef2ff;
+        }
+
+        .answer-letter {
+            width: 34px;
+            height: 34px;
+            min-width: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: #f3f4f6;
+            color: #374151;
+            font-weight: 700;
+        }
+
+        .answer-option.selected .answer-letter {
+            background: #6366f1;
+            color: white;
+        }
+
+        .assessment-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .primary-assessment-button,
+        .secondary-assessment-button {
+            border: none;
+            border-radius: 10px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .primary-assessment-button {
+            background: #6366f1;
+            color: white;
+        }
+
+        .primary-assessment-button:hover {
+            background: #4f46e5;
+        }
+
+        .secondary-assessment-button {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .secondary-assessment-button:hover {
+            background: #e5e7eb;
+        }
+
+        .secondary-assessment-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .result-icon {
+            width: 65px;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            border-radius: 18px;
+            background: #eef2ff;
+            color: #6366f1;
+            font-size: 28px;
+        }
+
+        .result-header h2 {
+            font-size: 30px;
+            margin: 5px 0 10px;
+        }
+
+        .result-header p {
+            color: #6b7280;
+        }
+
+        .score-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .score-card {
+            padding: 18px;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            display: grid;
+            grid-template-columns: 45px 1fr;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .score-icon {
+            font-size: 25px;
+        }
+
+        .score-card strong {
+            display: block;
+            color: #111827;
+        }
+
+        .score-card span {
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .score-bar {
+            grid-column: 1 / -1;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .score-bar div {
+            height: 100%;
+            background: #6366f1;
+            border-radius: 20px;
+        }
+
+        .recommendation-title {
+            margin-bottom: 18px;
+        }
+
+        .recommendation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .recommendation-card {
+            display: flex;
+            gap: 15px;
+            padding: 18px;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+        }
+
+        .recommendation-icon {
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
+            border-radius: 12px;
+            background: #eef2ff;
+            color: #6366f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .recommendation-card h3 {
+            margin: 0 0 5px;
+            font-size: 16px;
+        }
+
+        .recommendation-card p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .result-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 800px) {
+            .assessment-intro {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .answer-options,
+            .score-grid,
+            .recommendation-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-logo">AI</div>
+
+            <div>
+                <h2>CareerMentor</h2>
+                <span>AI Career Guidance</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="dashboard.html">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="careers.html">
+                <span>💼</span>
+                Career Explorer
+            </a>
+
+            <a href="assessment.html" class="active">
+                <span>✓</span>
+                Skill Assessment
+            </a>
+
+            <a href="roadmap.html">
+                <span>◎</span>
+                Career Roadmap
+            </a>
+
+            <a href="mentor.html">
+                <span>✦</span>
+                AI Mentor
+            </a>
+
+            <a href="jobs.html">
+                <span>▣</span>
+                Jobs
+            </a>
+
+            <a href="learning.html">
+                <span>▤</span>
+                Learning Hub
+            </a>
+
+            <a href="profile.html">
+                <span>♙</span>
+                Profile
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <button onclick="logoutUser()" class="logout-button">
+                Logout
+            </button>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main-area">
+
+        <header class="topbar">
+
+            <div>
+                <h1>Skill Assessment</h1>
+
+                <p>
+                    Discover your strengths and find suitable career paths.
+                </p>
+            </div>
+
+            <div class="user-mini">
+
+                <div class="mini-avatar" id="userAvatar">
+                    U
+                </div>
+
+                <div>
+                    <strong id="userName">
+                        User
+                    </strong>
+
+                    <small>
+                        Skill Assessment
+                    </small>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- INTRO -->
+        <section class="assessment-intro">
+
+            <div>
+
+                <span class="hero-label">
+                    CAREER DISCOVERY
+                </span>
+
+                <h2>
+                    Understand your
+                    <strong>strengths.</strong>
+                </h2>
+
+                <p>
+                    Answer a few questions about your interests,
+                    abilities and working style. Your answers will
+                    help identify career areas that may suit you.
+                </p>
+
+            </div>
+
+            <div class="assessment-progress">
+
+                <div class="progress-circle">
+
+                    <span id="progressPercent">
+                        0%
+                    </span>
+
+                </div>
+
+                <small>
+                    Assessment Progress
+                </small>
+
+            </div>
+
+        </section>
+
+
+        <!-- QUESTIONS -->
+        <section
+            class="assessment-card"
+            id="assessmentCard"
+        >
+
+            <div class="question-number">
+
+                Question
+                <span id="questionNumber">
+                    1
+                </span>
+                of 10
+
+            </div>
+
+            <h2 id="questionText">
+                Loading question...
+            </h2>
+
+            <div
+                class="answer-options"
+                id="answerOptions"
+            ></div>
+
+            <div class="assessment-navigation">
+
+                <button
+                    id="previousButton"
+                    class="secondary-assessment-button"
+                    onclick="previousQuestion()"
+                    disabled
+                >
+                    ← Previous
+                </button>
+
+                <button
+                    id="nextButton"
+                    class="primary-assessment-button"
+                    onclick="nextQuestion()"
+                >
+                    Next →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- RESULT -->
+        <section
+            class="assessment-result"
+            id="assessmentResult"
+        >
+
+            <div class="result-header">
+
+                <div class="result-icon">
+                    ✦
+                </div>
+
+                <span class="hero-label">
+                    YOUR ASSESSMENT RESULT
+                </span>
+
+                <h2>
+                    Your Career Strengths
+                </h2>
+
+                <p>
+                    Based on your answers, these career areas
+                    may be a good starting point for you.
+                </p>
+
+            </div>
+
+            <div
+                class="score-grid"
+                id="scoreGrid"
+            ></div>
+
+            <h3 class="recommendation-title">
+                Recommended Careers
+            </h3>
+
+            <div
+                class="recommendation-grid"
+                id="recommendationGrid"
+            ></div>
+
+            <div class="result-actions">
+
+                <button
+                    class="secondary-assessment-button"
+                    onclick="restartAssessment()"
+                >
+                    Retake Assessment
+                </button>
+
+                <a
+                    href="careers.html"
+                    class="primary-assessment-button"
+                >
+                    Explore Careers →
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script>
+
+const questions = [
+
+    {
+        question:
+            "Which activity sounds most interesting to you?",
+
+        options: [
+
+            {
+                text: "Building a website or application",
+                category: "technology"
+            },
+
+            {
+                text: "Analyzing numbers and finding patterns",
+                category: "data"
+            },
+
+            {
+                text: "Designing a beautiful interface",
+                category: "design"
+            },
+
+            {
+                text: "Understanding how businesses work",
+                category: "business"
+            }
+
+        ]
+    },
+
+    {
+        question:
+            "How do you feel about solving technical problems?",
+
+        options: [
+
+            {
+                text: "I really enjoy solving them",
+                category: "technology"
+            },
+
+            {
+                text: "I enjoy analyzing the problem",
+                category: "data"
+            },
+
+            {
+                text: "I prefer finding creative solutions",
+                category: "design"
+            },
+
+            {
+                text: "I prefer managing the overall solution",
+                category: "business"
+            }
+
+        ]
+    },
+
+    {
+        question:
+            "Which subject interests you the most?",
+
+        options: [
+
+            {
+                text: "Computer Science",
+                category: "technology"
+            },
+
+            {
+                text: "Mathematics and Statistics",
+                category: "data"
+            },
+
+            {
+                text: "Art and Design",
+                category: "design"
+            },
+
+            {
+                text: "Business and Management",
+                category: "business"
+            }
+
+        ]
+    },
+
+    {
+        question:
+            "What type of work environment would you prefer?",
+
+        options: [
+
+            {
+                text: "Working with technology",
+                category: "technology"
+            },
+
+            {
+                text: "Working with data and reports",
+                category: "data"
+            },
+
+            {
+                text: "Creative and visual work",
+                category: "design"
+            },
+
+            {
+                text: "Working with people and organizations",
+                category: "business"
+            }
+
+        ]
+    },
+
+    {
+        question:
+            "Which skill would you most like to develop?",
+
+        options: [
+
+            {
+                text: "Programming",
+                category: "technology"
+            },
+
+            {
+                text: "Data Analysis",
+                category: "data"
+            },
+
+            {
+                text: "UI/UX Design",
+                category: "design"
+            },
+
+            {
+                text: "Leadership",
+                category: "business"
+            }
+
+        ]
+    },
+
+    {
+        question:
+            "What kind of problems do you enjoy?",
+
+        options: [
+
+            {
+                text: "Technical problems",
+                category: "technology"
+            },
+
+            {
+                text: "Logical and numerical problems",
+                category: "data"
+            },
+
+            {
+                text: "Creative problems",
+                category: "design"
+            },
+
+            {
+                text: "Organizational problems",
+                category: "business"
+            }
+
+        ]
+    },
+
+    {
+        question:
+            "Which project would you choose?",
+
+        options: [
+
+            {
+                text: "Build a mobile application",
+                category: "technology"
+            },
+
+            {
+                text: "Analyze a company's data",
+                category: "data"
+            },
+
+            {
+                text: "Design an application",
+                category: "design"
+            },
+
+            {
+                text: "Create a business strategy",
+                category: "business"
+            }
+
+        ]
+    },
+
+    {
+        question:
+            "Which description fits you best?",
+
+        options: [
+
+            {
+                text: "Logical and technical",
+                category: "technology"
+            },
+
+            {
+                text: "Analytical and detail-oriented",
+                category: "data"
+            },
+
+            {
+                text: "Creative and visual",
+                category: "design"
+            },
+
+            {
+                text: "Organized and communicative",
+                category: "business"
+            }
+
+        ]
+    },
+
+    {
+        question:
+            "What would make you most satisfied at work?",
+
+        options: [
+
+            {
+                text: "Creating useful technology",
+                category: "technology"
+            },
+
+            {
+                text: "Finding meaningful insights",
+                category: "data"
+            },
+
+            {
+                text: "Creating something people enjoy using",
+                category: "design"
+            },
+
+            {
+                text: "Helping an organization succeed",
+                category: "business"
+            }
+
+        ]
+    },
+
+    {
+        question:
+            "Which career area sounds most exciting?",
+
+        options: [
+
+            {
+                text: "Software and Technology",
+                category: "technology"
+            },
+
+            {
+                text: "Data and Artificial Intelligence",
+                category: "data"
+            },
+
+            {
+                text: "Design and User Experience",
+                category: "design"
+            },
+
+            {
+                text: "Business and Management",
+                category: "business"
+            }
+
+        ]
+    }
+
+];
+
+
+let currentQuestion = 0;
+
+let answers = [];
+
+let scores = {
+    technology: 0,
+    data: 0,
+    design: 0,
+    business: 0
+};
+
+
+// =====================================================
+// LOAD USER
+// =====================================================
+
+async function loadUser() {
+
+    try {
+
+        const response = await fetch("/api/user", {
+            method: "GET",
+            credentials: "include"
+        });
+
+        const data = await response.json();
+
+        /*
+            IMPORTANT:
+            The server returns:
+
+            {
+                success: true,
+                user: {...}
+            }
+
+            It does NOT return data.loggedIn.
+        */
+
+        if (!response.ok || !data.success || !data.user) {
+
+            window.location.href = "login.html";
+
+            return;
+        }
+
+        document.getElementById("userName").textContent =
+            data.user.name;
+
+        document.getElementById("userAvatar").textContent =
+            data.user.name
+                .charAt(0)
+                .toUpperCase();
+
+    } catch (error) {
+
+        console.error("User loading error:", error);
+
+        window.location.href = "login.html";
+    }
+}
+
+
+// =====================================================
+// SHOW QUESTION
+// =====================================================
+
+function showQuestion() {
+
+    const question =
+        questions[currentQuestion];
+
+    document.getElementById("questionNumber")
+        .textContent =
+        currentQuestion + 1;
+
+    document.getElementById("questionText")
+        .textContent =
+        question.question;
+
+    const options =
+        document.getElementById("answerOptions");
+
+    options.innerHTML = "";
+
+    question.options.forEach(
+        (option, index) => {
+
+            const button =
+                document.createElement("button");
+
+            button.className =
+                "answer-option";
+
+            if (
+                answers[currentQuestion] ===
+                index
+            ) {
+
+                button.classList.add(
+                    "selected"
+                );
+
+            }
+
+            button.innerHTML = `
+                <span class="answer-letter">
+                    ${String.fromCharCode(65 + index)}
+                </span>
+
+                <span>
+                    ${option.text}
+                </span>
+            `;
+
+            button.onclick = () => {
+
+                answers[currentQuestion] =
+                    index;
+
+                showQuestion();
+
+            };
+
+            options.appendChild(button);
+
+        }
+    );
+
+    document.getElementById(
+        "previousButton"
+    ).disabled =
+        currentQuestion === 0;
+
+    document.getElementById(
+        "nextButton"
+    ).textContent =
+        currentQuestion ===
+        questions.length - 1
+            ? "View Results"
+            : "Next →";
+
+    updateProgress();
+
+}
+
+
+// =====================================================
+// PROGRESS
+// =====================================================
+
+function updateProgress() {
+
+    const answered =
+        answers.filter(
+            answer => answer !== undefined
+        ).length;
+
+    const percent =
+        Math.round(
+            (answered / questions.length) * 100
+        );
+
+    document.getElementById(
+        "progressPercent"
+    ).textContent =
+        `${percent}%`;
+
+}
+
+
+// =====================================================
+// NEXT
+// =====================================================
+
+function nextQuestion() {
+
+    if (
+        answers[currentQuestion] ===
+        undefined
+    ) {
+
+        alert(
+            "Please select an answer before continuing."
+        );
+
+        return;
+    }
+
+    if (
+        currentQuestion <
+        questions.length - 1
+    ) {
+
+        currentQuestion++;
+
+        showQuestion();
+
+    } else {
+
+        calculateResults();
+
+    }
+
+}
+
+
+// =====================================================
+// PREVIOUS
+// =====================================================
+
+function previousQuestion() {
+
+    if (currentQuestion > 0) {
+
+        currentQuestion--;
+
+        showQuestion();
+
+    }
+
+}
+
+
+// =====================================================
+// RESULTS
+// =====================================================
+
+function calculateResults() {
+
+    scores = {
+        technology: 0,
+        data: 0,
+        design: 0,
+        business: 0
+    };
+
+    answers.forEach(
+        (answer, questionIndex) => {
+
+            if (answer === undefined) {
+                return;
+            }
+
+            const category =
+                questions[
+                    questionIndex
+                ].options[answer].category;
+
+            scores[category]++;
+
+        }
+    );
+
+    document.getElementById(
+        "assessmentCard"
+    ).style.display = "none";
+
+    document.getElementById(
+        "assessmentResult"
+    ).classList.add("show");
+
+    renderScores();
+
+    renderRecommendations();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+// =====================================================
+// SCORES
+// =====================================================
+
+function renderScores() {
+
+    const names = {
+
+        technology: "Technology",
+
+        data: "Data & AI",
+
+        design: "Design",
+
+        business: "Business"
+
+    };
+
+    const icons = {
+
+        technology: "💻",
+
+        data: "📊",
+
+        design: "🎨",
+
+        business: "📈"
+
+    };
+
+    const grid =
+        document.getElementById(
+            "scoreGrid"
+        );
+
+    grid.innerHTML =
+        Object.entries(scores)
+            .sort(
+                (a, b) =>
+                    b[1] - a[1]
+            )
+            .map(
+                ([category, score]) => {
+
+                    const percent =
+                        Math.round(
+                            (score /
+                            questions.length) *
+                            100
+                        );
+
+                    return `
+
+                        <div class="score-card">
+
+                            <div class="score-icon">
+                                ${icons[category]}
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    ${names[category]}
+                                </strong>
+
+                                <span>
+                                    ${score} / ${questions.length}
+                                </span>
+
+                            </div>
+
+                            <div class="score-bar">
+
+                                <div
+                                    style="width:${percent}%"
+                                ></div>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+}
+
+
+// =====================================================
+// RECOMMENDATIONS
+// =====================================================
+
+function renderRecommendations() {
+
+    const sorted =
+        Object.entries(scores)
+            .sort(
+                (a, b) =>
+                    b[1] - a[1]
+            );
+
+    const top =
+        sorted[0][0];
+
+    const recommendations = {
+
+        technology: [
+
+            [
+                "Software Developer",
+                "Build applications and software using programming and technology."
+            ],
+
+            [
+                "Web Developer",
+                "Create modern websites and web applications."
+            ],
+
+            [
+                "Cloud Engineer",
+                "Work with cloud platforms and modern infrastructure."
+            ]
+
+        ],
+
+        data: [
+
+            [
+                "Data Analyst",
+                "Turn data into useful business insights."
+            ],
+
+            [
+                "Data Scientist",
+                "Use statistics, programming and machine learning."
+            ],
+
+            [
+                "AI / ML Engineer",
+                "Build intelligent systems using machine learning."
+            ]
+
+        ],
+
+        design: [
+
+            [
+                "UI/UX Designer",
+                "Design useful and enjoyable digital experiences."
+            ],
+
+            [
+                "Web Developer",
+                "Combine technology with visual web development."
+            ]
+
+        ],
+
+        business: [
+
+            [
+                "Business Analyst",
+                "Analyze business needs and improve organizational processes."
+            ],
+
+            [
+                "Digital Marketing Specialist",
+                "Build digital campaigns and online strategies."
+            ]
+
+        ]
+
+    };
+
+
+    const grid =
+        document.getElementById(
+            "recommendationGrid"
+        );
+
+    grid.innerHTML =
+        recommendations[top]
+            .map(
+                ([title, description]) => `
+
+                    <div class="recommendation-card">
+
+                        <div class="recommendation-icon">
+                            ✦
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                ${title}
+                            </h3>
+
+                            <p>
+                                ${description}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                `
+            )
+            .join("");
+
+}
+
+
+// =====================================================
+// RESTART
+// =====================================================
+
+function restartAssessment() {
+
+    currentQuestion = 0;
+
+    answers = [];
+
+    document.getElementById(
+        "assessmentResult"
+    ).classList.remove("show");
+
+    document.getElementById(
+        "assessmentCard"
+    ).style.display = "block";
+
+    showQuestion();
+
+}
+
+
+// =====================================================
+// LOGOUT
+// =====================================================
+
+async function logoutUser() {
+
+    try {
+
+        await fetch(
+            "/logout",
+            {
+                method: "POST",
+                credentials: "include"
+            }
+        );
+
+    } catch (error) {
+
+        console.error("Logout error:", error);
+
+    }
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+// =====================================================
+// START
+// =====================================================
+
+loadUser();
+
+showQuestion();
+
+</script>
+
+</body>
+
+</html>

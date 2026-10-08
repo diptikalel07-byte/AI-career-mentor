@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Career Mentor - Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #222;
+        }
+
+        .navbar {
+            height: 70px;
+            background: linear-gradient(135deg, #6c4df6, #8b5cf6);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .logout {
+            background: white;
+            color: #6c4df6;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 25px;
+        }
+
+        .welcome {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .welcome h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            color: #777;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        .card h2 {
+            color: #6c4df6;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .card button {
+            border: none;
+            background: #6c4df6;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .card button:hover {
+            background: #5738df;
+        }
+
+        #userEmail {
+            color: #777;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            🤖 AI Career Mentor
+        </div>
+
+        <button class="logout" onclick="logout()">
+            Logout
+        </button>
+    </nav>
+
+    <main class="container">
+
+        <section class="welcome">
+            <h1>Welcome, <span id="userName">Student</span> 👋</h1>
+
+            <p>
+                Your personalized AI Career Mentor dashboard
+            </p>
+
+            <p id="userEmail"></p>
+        </section>
+
+        <section class="cards">
+
+            <div class="card">
+                <h2>🎯 Career Assessment</h2>
+                <p>
+                    Discover careers that match your interests and skills.
+                </p>
+
+                <button onclick="location.href='assessment.html'">
+                    Start Assessment
+                </button>
+            </div>
+
+            <div class="card">
+                <h2>💼 Careers</h2>
+                <p>
+                    Explore different career paths and opportunities.
+                </p>
+
+                <button onclick="location.href='careers.html'">
+                    Explore Careers
+                </button>
+            </div>
+
+            <div class="card">
+                <h2>🗺️ Roadmap</h2>
+                <p>
+                    Create a step-by-step roadmap for your career.
+                </p>
+
+                <button onclick="location.href='roadmap.html'">
+                    View Roadmap
+                </button>
+            </div>
+
+            <div class="card">
+                <h2>🤖 AI Mentor</h2>
+                <p>
+                    Get guidance and suggestions from your AI career mentor.
+                </p>
+
+                <button onclick="location.href='mentor.html'">
+                    Open Mentor
+                </button>
+            </div>
+
+            <div class="card">
+                <h2>📚 Learning</h2>
+                <p>
+                    Improve your skills with useful learning resources.
+                </p>
+
+                <button onclick="location.href='learning.html'">
+                    Start Learning
+                </button>
+            </div>
+
+            <div class="card">
+                <h2>📄 Resume</h2>
+                <p>
+                    Build and improve your professional resume.
+                </p>
+
+                <button onclick="location.href='resume.html'">
+                    Resume Builder
+                </button>
+            </div>
+
+            <div class="card">
+                <h2>💬 Interview</h2>
+                <p>
+                    Practice interview questions and prepare for jobs.
+                </p>
+
+                <button onclick="location.href='interview.html'">
+                    Practice
+                </button>
+            </div>
+
+            <div class="card">
+                <h2>💼 Jobs</h2>
+                <p>
+                    Explore job opportunities related to your career.
+                </p>
+
+                <button onclick="location.href='jobs.html'">
+                    Find Jobs
+                </button>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+
+        async function loadUser() {
+
+            try {
+
+                const response = await fetch("/api/user", {
+                    method: "GET",
+                    credentials: "include"
+                });
+
+                const data = await response.json();
+
+                if (data.success && data.user) {
+
+                    document.getElementById("userName").textContent =
+                        data.user.name;
+
+                    document.getElementById("userEmail").textContent =
+                        data.user.email;
+
+                } else {
+
+                    // IMPORTANT:
+                    // Do NOT redirect automatically.
+                    // This lets us see whether the dashboard itself works.
+
+                    document.getElementById("userName").textContent =
+                        "Student";
+
+                    document.getElementById("userEmail").textContent =
+                        "Welcome to your career dashboard";
+
+                }
+
+            } catch (error) {
+
+                console.error("User loading error:", error);
+
+                document.getElementById("userName").textContent =
+                    "Student";
+
+            }
+        }
+
+
+        async function logout() {
+
+            try {
+
+                const response = await fetch("/logout", {
+                    method: "POST",
+                    credentials: "include"
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    window.location.href = "/login.html";
+                }
+
+            } catch (error) {
+
+                console.error(error);
+
+                window.location.href = "/login.html";
+
+            }
+        }
+
+
+        loadUser();
+
+    </script>
+
+</body>
+</html>

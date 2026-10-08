@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interview Practice | AI Career Mentor</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    background: #f4f7fb;
+    color: #1f2937;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 250px;
+    background: #111827;
+    color: white;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 25px 15px;
+    overflow-y: auto;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+    padding: 0 12px 30px;
+}
+
+.logo span {
+    color: #60a5fa;
+}
+
+.menu-title {
+    font-size: 11px;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 12px;
+    margin-top: 8px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    margin: 4px 0;
+    border-radius: 9px;
+    color: #d1d5db;
+    text-decoration: none;
+    font-size: 14px;
+    transition: .2s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: #1f2937;
+    color: white;
+}
+
+.nav-icon {
+    width: 24px;
+    text-align: center;
+    font-size: 17px;
+}
+
+/* MAIN */
+.main {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+}
+
+.topbar {
+    height: 72px;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 35px;
+}
+
+.page-title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.user-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background: #2563eb;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.user-name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.content {
+    padding: 30px 35px 50px;
+}
+
+/* HERO */
+.hero {
+    background: linear-gradient(135deg, #1d4ed8, #4f46e5);
+    color: white;
+    padding: 30px;
+    border-radius: 18px;
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.hero p {
+    color: #dbeafe;
+    line-height: 1.6;
+    max-width: 750px;
+}
+
+/* STATS */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stat {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 18px;
+}
+
+.stat-icon {
+    font-size: 23px;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.stat-label {
+    color: #6b7280;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+/* GRID */
+.practice-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 25px;
+    align-items: start;
+}
+
+.card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 23px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.04);
+}
+
+.card h2 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: #6b7280;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+/* SETTINGS */
+.setting {
+    margin-bottom: 18px;
+}
+
+.setting label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: white;
+    font-size: 13px;
+    outline: none;
+}
+
+select:focus {
+    border-color: #2563eb;
+}
+
+.topic-list {
+    display: grid;
+    gap: 8px;
+}
+
+.topic {
+    border: 1px solid #e5e7eb;
+    background: #f9fafb;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: .2s;
+}
+
+.topic:hover,
+.topic.selected {
+    background: #eff6ff;
+    border-color: #2563eb;
+    color: #1d4ed8;
+}
+
+/* BUTTONS */
+button {
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 11px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: .2s;
+}
+
+.btn-primary {
+    background: #2563eb;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #1d4ed8;
+}
+
+.btn-secondary {
+    background: #eef2ff;
+    color: #3730a3;
+}
+
+.btn-dark {
+    background: #111827;
+    color: white;
+}
+
+.btn-danger {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* INTERVIEW */
+.interview-card {
+    min-height: 520px;
+}
+
+.interview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.badges {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    background: #eff6ff;
+    color: #1d4ed8;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.progress-wrap {
+    margin-bottom: 25px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 6px;
+}
+
+.progress {
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 20%;
+    background: #2563eb;
+    transition: .3s;
+}
+
+.question-box {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 13px;
+    padding: 22px;
+    margin-bottom: 18px;
+}
+
+.question-number {
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.question {
+    font-size: 19px;
+    line-height: 1.5;
+    font-weight: 700;
+}
+
+.answer-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+textarea {
+    width: 100%;
+    min-height: 150px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    padding: 13px;
+    resize: vertical;
+    outline: none;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+textarea:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.actions-left,
+.actions-right {
+    display: flex;
+    gap: 8px;
+}
+
+/* FEEDBACK */
+.feedback {
+    display: none;
+    margin-top: 20px;
+    padding: 18px;
+    border-radius: 12px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+}
+
+.feedback.show {
+    display: block;
+}
+
+.feedback h3 {
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.score {
+    font-size: 27px;
+    font-weight: 800;
+    color: #15803d;
+    margin-bottom: 5px;
+}
+
+.feedback p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #374151;
+}
+
+/* RESULT */
+.result {
+    display: none;
+    text-align: center;
+    padding: 35px 20px;
+}
+
+.result.show {
+    display: block;
+}
+
+.result-icon {
+    font-size: 55px;
+    margin-bottom: 12px;
+}
+
+.result h2 {
+    font-size: 27px;
+    margin-bottom: 7px;
+}
+
+.final-score {
+    font-size: 45px;
+    font-weight: 800;
+    color: #2563eb;
+    margin: 15px 0;
+}
+
+.result p {
+    color: #6b7280;
+    line-height: 1.6;
+    max-width: 550px;
+    margin: auto;
+}
+
+.result-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1000px) {
+    .practice-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 750px) {
+    .sidebar {
+        width: 70px;
+        padding: 20px 8px;
+    }
+
+    .logo {
+        font-size: 0;
+        text-align: center;
+        padding-bottom: 20px;
+    }
+
+    .logo span {
+        font-size: 20px;
+    }
+
+    .nav-link {
+        justify-content: center;
+        padding: 12px 5px;
+    }
+
+    .nav-link span:not(.nav-icon),
+    .menu-title {
+        display: none;
+    }
+
+    .main {
+        margin-left: 70px;
+        width: calc(100% - 70px);
+    }
+
+    .topbar {
+        padding: 0 15px;
+    }
+
+    .content {
+        padding: 20px 15px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .interview-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+    .actions-left,
+    .actions-right {
+        width: 100%;
+    }
+
+    .actions button {
+        flex: 1;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div class="logo">
+        Career<span>AI</span>
+    </div>
+
+    <div class="menu-title">Main</div>
+
+    <a href="dashboard.html" class="nav-link">
+        <span class="nav-icon">🏠</span>
+        <span>Dashboard</span>
+    </a>
+
+    <a href="assessment.html" class="nav-link">
+        <span class="nav-icon">📝</span>
+        <span>Assessment</span>
+    </a>
+
+    <a href="careers.html" class="nav-link">
+        <span class="nav-icon">🎯</span>
+        <span>Explore Careers</span>
+    </a>
+
+    <a href="roadmap.html" class="nav-link">
+        <span class="nav-icon">🗺️</span>
+        <span>Career Roadmap</span>
+    </a>
+
+    <div class="menu-title">Career Tools</div>
+
+    <a href="learning.html" class="nav-link">
+        <span class="nav-icon">📚</span>
+        <span>Learning</span>
+    </a>
+
+    <a href="jobs.html" class="nav-link">
+        <span class="nav-icon">💼</span>
+        <span>Jobs & Opportunities</span>
+    </a>
+
+    <a href="resume.html" class="nav-link">
+        <span class="nav-icon">📄</span>
+        <span>Resume Builder</span>
+    </a>
+
+    <a href="interview.html" class="nav-link active">
+        <span class="nav-icon">🎤</span>
+        <span>Interview Practice</span>
+    </a>
+
+    <a href="mentor.html" class="nav-link">
+        <span class="nav-icon">🤖</span>
+        <span>AI Mentor</span>
+    </a>
+
+    <div class="menu-title">Account</div>
+
+    <a href="profile.html" class="nav-link">
+        <span class="nav-icon">👤</span>
+        <span>Profile</span>
+    </a>
+
+    <a href="settings.html" class="nav-link">
+        <span class="nav-icon">⚙️</span>
+        <span>Settings</span>
+    </a>
+
+</aside>
+
+
+<!-- MAIN -->
+<main class="main">
+
+<header class="topbar">
+
+    <div class="page-title">
+        Interview Practice
+    </div>
+
+    <div class="user-box">
+
+        <div class="avatar" id="userAvatar">
+            U
+        </div>
+
+        <div class="user-name" id="userName">
+            Loading...
+        </div>
+
+    </div>
+
+</header>
+
+
+<div class="content">
+
+<!-- HERO -->
+<section class="hero">
+
+    <h1>Practice Like a Real Interview 🎤</h1>
+
+    <p>
+        Improve your interview confidence by practicing common
+        technical, HR and career questions. Answer each question
+        and receive instant practice feedback.
+    </p>
+
+</section>
+
+
+<!-- STATS -->
+<div class="stats">
+
+    <div class="stat">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-value" id="statQuestions">0</div>
+        <div class="stat-label">Questions Answered</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-value" id="statScore">0%</div>
+        <div class="stat-label">Best Score</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-icon">🔥</div>
+        <div class="stat-value" id="statStreak">1</div>
+        <div class="stat-label">Practice Streak</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-icon">🏆</div>
+        <div class="stat-value" id="statLevel">Beginner</div>
+        <div class="stat-label">Interview Level</div>
+    </div>
+
+</div>
+
+
+<!-- PRACTICE -->
+<div class="practice-grid">
+
+
+<!-- SETTINGS CARD -->
+<div class="card">
+
+    <h2>Practice Setup</h2>
+
+    <p class="subtitle">
+        Choose what you want to practice.
+    </p>
+
+
+    <div class="setting">
+
+        <label>Interview Type</label>
+
+        <select id="interviewType">
+
+            <option value="hr">
+                HR / General Interview
+            </option>
+
+            <option value="technical">
+                Technical Interview
+            </option>
+
+            <option value="behavioral">
+                Behavioral Interview
+            </option>
+
+            <option value="career">
+                Career & Internship
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="setting">
+
+        <label>Difficulty</label>
+
+        <select id="difficulty">
+
+            <option value="easy">
+                Beginner
+            </option>
+
+            <option value="medium">
+                Intermediate
+            </option>
+
+            <option value="hard">
+                Advanced
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="setting">
+
+        <label>Topic</label>
+
+        <div class="topic-list">
+
+            <div
+                class="topic selected"
+                onclick="selectTopic(this,'General')"
+            >
+                💬 General
+            </div>
+
+            <div
+                class="topic"
+                onclick="selectTopic(this,'Technical')"
+            >
+                💻 Technical
+            </div>
+
+            <div
+                class="topic"
+                onclick="selectTopic(this,'Projects')"
+            >
+                🛠️ Projects
+            </div>
+
+            <div
+                class="topic"
+                onclick="selectTopic(this,'Strengths')"
+            >
+                ⭐ Strengths
+            </div>
+
+            <div
+                class="topic"
+                onclick="selectTopic(this,'Career Goals')"
+            >
+                🚀 Career Goals
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="btn-primary"
+        style="width:100%; margin-top:5px;"
+        onclick="startInterview()"
+    >
+        ▶ Start Practice
+    </button>
+
+</div>
+
+
+<!-- INTERVIEW CARD -->
+<div class="card interview-card">
+
+
+    <!-- QUESTION AREA -->
+    <div id="questionArea">
+
+        <div class="interview-header">
+
+            <div>
+
+                <h2 id="sessionTitle">
+                    Ready for Your Interview?
+                </h2>
+
+                <p class="subtitle" style="margin-bottom:0;">
+                    Select your preferences and start practicing.
+                </p>
+
+            </div>
+
+            <div class="badges">
+
+                <span class="badge" id="typeBadge">
+                    HR
+                </span>
+
+                <span class="badge" id="difficultyBadge">
+                    Beginner
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="progress-wrap">
+
+            <div class="progress-info">
+
+                <span id="questionProgress">
+                    Question 0 of 5
+                </span>
+
+                <span id="progressPercent">
+                    0%
+                </span>
+
+            </div>
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar"
+                    id="progressBar"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="question-box">
+
+            <div
+                class="question-number"
+                id="questionNumber"
+            >
+                QUESTION 0
+            </div>
+
+            <div
+                class="question"
+                id="questionText"
+            >
+                Click "Start Practice" to receive your first interview question.
+            </div>
+
+        </div>
+
+
+        <label class="answer-label">
+            Your Answer
+        </label>
+
+        <textarea
+            id="answer"
+            placeholder="Write your answer here. Try to answer naturally, just like you would in a real interview..."
+        ></textarea>
+
+
+        <div class="actions">
+
+            <div class="actions-left">
+
+                <button
+                    class="btn-secondary"
+                    onclick="showHint()"
+                >
+                    💡 Hint
+                </button>
+
+                <button
+                    class="btn-danger"
+                    onclick="clearAnswer()"
+                >
+                    Clear
+                </button>
+
+            </div>
+
+            <div class="actions-right">
+
+                <button
+                    class="btn-primary"
+                    id="submitButton"
+                    onclick="submitAnswer()"
+                >
+                    Submit Answer
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="feedback"
+            id="feedback"
+        >
+
+            <h3>
+                Practice Feedback
+            </h3>
+
+            <div
+                class="score"
+                id="feedbackScore"
+            >
+                0/10
+            </div>
+
+            <p id="feedbackText">
+                Your feedback will appear here.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- RESULT -->
+    <div
+        class="result"
+        id="resultArea"
+    >
+
+        <div class="result-icon">
+            🏆
+        </div>
+
+        <h2>
+            Interview Practice Complete!
+        </h2>
+
+        <div
+            class="final-score"
+            id="finalScore"
+        >
+            0%
+        </div>
+
+        <p id="resultMessage">
+            Great job completing your practice session.
+        </p>
+
+        <div class="result-buttons">
+
+            <button
+                class="btn-primary"
+                onclick="startInterview()"
+            >
+                🔄 Practice Again
+            </button>
+
+            <button
+                class="btn-secondary"
+                onclick="window.location.href='mentor.html'"
+            >
+                🤖 Ask AI Mentor
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+
+<script>
+
+/* ==========================================
+   USER AUTHENTICATION
+========================================== */
+
+async function loadUser() {
+
+    try {
+
+        const response = await fetch("/api/user", {
+            method: "GET",
+            credentials: "include"
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success || !data.user) {
+
+            window.location.href = "login.html";
+            return;
+
+        }
+
+        const user = data.user;
+
+        document.getElementById("userName").textContent =
+            user.name;
+
+        document.getElementById("userAvatar").textContent =
+            user.name.charAt(0).toUpperCase();
+
+        loadStats();
+
+    } catch (error) {
+
+        console.error(error);
+
+        window.location.href = "login.html";
+
+    }
+
+}
+
+
+/* ==========================================
+   QUESTION DATABASE
+========================================== */
+
+const questions = {
+
+    hr: [
+
+        {
+            q: "Tell me about yourself.",
+            hint: "Give a short introduction covering your education, skills, interests and career goal."
+        },
+
+        {
+            q: "Why should we hire you?",
+            hint: "Talk about your useful skills, willingness to learn and how you can contribute."
+        },
+
+        {
+            q: "What are your strengths?",
+            hint: "Choose 2 or 3 genuine strengths and give a small example."
+        },
+
+        {
+            q: "What is one weakness you are working on?",
+            hint: "Choose a real but manageable weakness and explain how you are improving it."
+        },
+
+        {
+            q: "Where do you see yourself in five years?",
+            hint: "Talk about realistic professional growth and the skills you want to develop."
+        }
+
+    ],
+
+    technical: [
+
+        {
+            q: "What is the difference between HTML, CSS and JavaScript?",
+            hint: "Think about structure, presentation and functionality."
+        },
+
+        {
+            q: "What is a database?",
+            hint: "Explain how databases store and organize information."
+        },
+
+        {
+            q: "What is the difference between frontend and backend development?",
+            hint: "Think about what users see versus what happens on the server."
+        },
+
+        {
+            q: "What is an API?",
+            hint: "Think about communication between different software systems."
+        },
+
+        {
+            q: "What is the purpose of SQL?",
+            hint: "Explain how SQL is used with relational databases."
+        }
+
+    ],
+
+    behavioral: [
+
+        {
+            q: "Tell me about a time you solved a difficult problem.",
+            hint: "Use a simple situation, explain your action and describe the result."
+        },
+
+        {
+            q: "How do you handle pressure?",
+            hint: "Explain how you organize tasks and stay focused."
+        },
+
+        {
+            q: "Tell me about a time you worked in a team.",
+            hint: "Mention your role, communication and contribution."
+        },
+
+        {
+            q: "How do you handle criticism?",
+            hint: "Show that you can listen, learn and improve."
+        },
+
+        {
+            q: "How do you manage multiple deadlines?",
+            hint: "Talk about prioritizing and planning your work."
+        }
+
+    ],
+
+    career: [
+
+        {
+            q: "Why did you choose your field of study?",
+            hint: "Explain what interests you about your field."
+        },
+
+        {
+            q: "What type of internship are you looking for?",
+            hint: "Mention the role, skills and experience you want to gain."
+        },
+
+        {
+            q: "What skills are you currently learning?",
+            hint: "Mention relevant technical or soft skills and why you are learning them."
+        },
+
+        {
+            q: "What is your ideal first job?",
+            hint: "Focus on learning, responsibilities and career development."
+        },
+
+        {
+            q: "What are your career goals?",
+            hint: "Give short-term and long-term professional goals."
+        }
+
+    ]
+
+};
+
+
+/* ==========================================
+   VARIABLES
+========================================== */
+
+let selectedTopic = "General";
+
+let currentQuestions = [];
+
+let currentQuestion = 0;
+
+let totalScore = 0;
+
+let sessionStarted = false;
+
+let answerSubmitted = false;
+
+
+/* ==========================================
+   TOPIC
+========================================== */
+
+function selectTopic(element, topic) {
+
+    document.querySelectorAll(".topic").forEach(item => {
+
+        item.classList.remove("selected");
+
+    });
+
+    element.classList.add("selected");
+
+    selectedTopic = topic;
+
+}
+
+
+/* ==========================================
+   START INTERVIEW
+========================================== */
+
+function startInterview() {
+
+    const type =
+        document.getElementById("interviewType").value;
+
+    const difficulty =
+        document.getElementById("difficulty").value;
+
+
+    currentQuestions =
+        [...questions[type]];
+
+    currentQuestion = 0;
+
+    totalScore = 0;
+
+    sessionStarted = true;
+
+    answerSubmitted = false;
+
+
+    document.getElementById("questionArea")
+        .style.display = "block";
+
+    document.getElementById("resultArea")
+        .classList.remove("show");
+
+
+    document.getElementById("feedback")
+        .classList.remove("show");
+
+
+    document.getElementById("typeBadge").textContent =
+        typeLabel(type);
+
+
+    document.getElementById("difficultyBadge").textContent =
+        difficultyLabel(difficulty);
+
+
+    document.getElementById("sessionTitle").textContent =
+        typeLabel(type) + " Interview";
+
+
+    showQuestion();
+
+}
+
+
+/* ==========================================
+   SHOW QUESTION
+========================================== */
+
+function showQuestion() {
+
+    const question =
+        currentQuestions[currentQuestion];
+
+
+    const number =
+        currentQuestion + 1;
+
+    const total =
+        currentQuestions.length;
+
+
+    const percent =
+        Math.round((number / total) * 100);
+
+
+    document.getElementById("questionNumber")
+        .textContent =
+        "QUESTION " + number;
+
+
+    document.getElementById("questionText")
+        .textContent =
+        question.q;
+
+
+    document.getElementById("questionProgress")
+        .textContent =
+        "Question " + number + " of " + total;
+
+
+    document.getElementById("progressPercent")
+        .textContent =
+        percent + "%";
+
+
+    document.getElementById("progressBar")
+        .style.width =
+        percent + "%";
+
+
+    document.getElementById("answer")
+        .value = "";
+
+
+    document.getElementById("feedback")
+        .classList.remove("show");
+
+
+    document.getElementById("submitButton")
+        .textContent =
+        "Submit Answer";
+
+
+    answerSubmitted = false;
+
+}
+
+
+/* ==========================================
+   SUBMIT ANSWER
+========================================== */
+
+function submitAnswer() {
+
+    if (!sessionStarted) {
+
+        alert("Please click Start Practice first.");
+
+        return;
+
+    }
+
+
+    const answer =
+        document.getElementById("answer")
+            .value.trim();
+
+
+    if (!answer) {
+
+        alert(
+            "Please write an answer before submitting."
+        );
+
+        return;
+
+    }
+
+
+    if (answerSubmitted) {
+
+        nextQuestion();
+
+        return;
+
+    }
+
+
+    const score =
+        calculateScore(answer);
+
+
+    totalScore += score;
+
+    answerSubmitted = true;
+
+
+    document.getElementById("feedbackScore")
+        .textContent =
+        score + "/10";
+
+
+    document.getElementById("feedbackText")
+        .textContent =
+        generateFeedback(score, answer);
+
+
+    document.getElementById("feedback")
+        .classList.add("show");
+
+
+    if (currentQuestion <
+        currentQuestions.length - 1) {
+
+        document.getElementById("submitButton")
+            .textContent =
+            "Next Question →";
+
+    } else {
+
+        document.getElementById("submitButton")
+            .textContent =
+            "Finish Interview";
+
+    }
+
+
+    saveStats();
+
+}
+
+
+/* ==========================================
+   NEXT QUESTION
+========================================== */
+
+function nextQuestion() {
+
+    if (currentQuestion <
+        currentQuestions.length - 1) {
+
+        currentQuestion++;
+
+        showQuestion();
+
+    } else {
+
+        finishInterview();
+
+    }
+
+}
+
+
+/* ==========================================
+   SCORE
+========================================== */
+
+function calculateScore(answer) {
+
+    let score = 4;
+
+
+    const length =
+        answer.length;
+
+
+    if (length >= 50)
+        score += 1;
+
+    if (length >= 100)
+        score += 1;
+
+    if (length >= 180)
+        score += 1;
+
+
+    const usefulWords = [
+
+        "because",
+        "experience",
+        "learn",
+        "skill",
+        "project",
+        "team",
+        "goal",
+        "improve",
+        "result",
+        "communication",
+        "problem",
+        "solution"
+
+    ];
+
+
+    const lower =
+        answer.toLowerCase();
+
+
+    let matches = 0;
+
+
+    usefulWords.forEach(word => {
+
+        if (lower.includes(word)) {
+
+            matches++;
+
+        }
+
+    });
+
+
+    score += Math.min(3, matches);
+
+
+    return Math.min(10, score);
+
+}
+
+
+/* ==========================================
+   FEEDBACK
+========================================== */
+
+function generateFeedback(score, answer) {
+
+    if (score >= 9) {
+
+        return "Excellent answer! Your response is detailed, relevant and shows strong communication. Keep practicing so you can deliver it naturally in a real interview.";
+
+    }
+
+    if (score >= 7) {
+
+        return "Good answer! You have included useful points. Try adding a specific example or measurable result to make your answer stronger.";
+
+    }
+
+    if (score >= 5) {
+
+        return "Decent start. Try giving more details, examples and explaining what you personally did. This will make your answer more convincing.";
+
+    }
+
+    return "Your answer needs more development. Try using a simple structure: situation, what you did, and the result. Avoid answers that are too short.";
+
+}
+
+
+/* ==========================================
+   HINT
+========================================== */
+
+function showHint() {
+
+    if (!sessionStarted) {
+
+        alert(
+            "Start an interview session first."
+        );
+
+        return;
+
+    }
+
+
+    const hint =
+        currentQuestions[currentQuestion].hint;
+
+
+    alert(
+        "💡 Hint\n\n" + hint
+    );
+
+}
+
+
+/* ==========================================
+   CLEAR
+========================================== */
+
+function clearAnswer() {
+
+    document.getElementById("answer")
+        .value = "";
+
+}
+
+
+/* ==========================================
+   FINISH
+========================================== */
+
+function finishInterview() {
+
+    const finalScore =
+        Math.round(
+            totalScore /
+            currentQuestions.length *
+            10
+        );
+
+
+    document.getElementById("questionArea")
+        .style.display = "none";
+
+
+    document.getElementById("resultArea")
+        .classList.add("show");
+
+
+    document.getElementById("finalScore")
+        .textContent =
+        finalScore + "%";
+
+
+    let message;
+
+
+    if (finalScore >= 85) {
+
+        message =
+            "Excellent performance! You are showing strong interview communication. Keep practicing with more challenging questions.";
+
+    } else if (finalScore >= 65) {
+
+        message =
+            "Good work! Your foundation is strong. Focus on giving specific examples and more structured answers.";
+
+    } else {
+
+        message =
+            "Nice attempt! Keep practicing regularly. Work on answer structure, examples and confidence.";
+
+    }
+
+
+    document.getElementById("resultMessage")
+        .textContent =
+        message;
+
+
+    const savedScore =
+        Number(
+            localStorage.getItem("careerAIBestScore") || 0
+        );
+
+
+    if (finalScore > savedScore) {
+
+        localStorage.setItem(
+            "careerAIBestScore",
+            finalScore
+        );
+
+    }
+
+
+    updateStatsDisplay();
+
+}
+
+
+/* ==========================================
+   LABELS
+========================================== */
+
+function typeLabel(type) {
+
+    const labels = {
+
+        hr: "HR / General",
+
+        technical: "Technical",
+
+        behavioral: "Behavioral",
+
+        career: "Career & Internship"
+
+    };
+
+    return labels[type] || type;
+
+}
+
+
+function difficultyLabel(level) {
+
+    const labels = {
+
+        easy: "Beginner",
+
+        medium: "Intermediate",
+
+        hard: "Advanced"
+
+    };
+
+    return labels[level] || level;
+
+}
+
+
+/* ==========================================
+   STATS
+========================================== */
+
+function loadStats() {
+
+    updateStatsDisplay();
+
+}
+
+
+function updateStatsDisplay() {
+
+    const questionsAnswered =
+        Number(
+            localStorage.getItem(
+                "careerAIQuestionsAnswered"
+            ) || 0
+        );
+
+
+    const bestScore =
+        Number(
+            localStorage.getItem(
+                "careerAIBestScore"
+            ) || 0
+        );
+
+
+    document.getElementById("statQuestions")
+        .textContent =
+        questionsAnswered;
+
+
+    document.getElementById("statScore")
+        .textContent =
+        bestScore + "%";
+
+
+    if (bestScore >= 85) {
+
+        document.getElementById("statLevel")
+            .textContent =
+            "Advanced";
+
+    } else if (bestScore >= 65) {
+
+        document.getElementById("statLevel")
+            .textContent =
+            "Intermediate";
+
+    } else {
+
+        document.getElementById("statLevel")
+            .textContent =
+            "Beginner";
+
+    }
+
+}
+
+
+/* ==========================================
+   SAVE STATS
+========================================== */
+
+function saveStats() {
+
+    const old =
+        Number(
+            localStorage.getItem(
+                "careerAIQuestionsAnswered"
+            ) || 0
+        );
+
+
+    localStorage.setItem(
+        "careerAIQuestionsAnswered",
+        old + 1
+    );
+
+
+    updateStatsDisplay();
+
+}
+
+
+/* ==========================================
+   START
+========================================== */
+
+loadUser();
+
+</script>
+
+</body>
+</html>

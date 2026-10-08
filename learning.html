@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Center | AI Career Mentor</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+        .topbar {
+            height: 70px;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 35px;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: #4f46e5;
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #4f46e5;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .layout {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #111827;
+            color: white;
+            padding: 25px 15px;
+            flex-shrink: 0;
+        }
+
+        .sidebar h3 {
+            color: #9ca3af;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin: 10px 15px 15px;
+        }
+
+        .sidebar a {
+            display: block;
+            text-decoration: none;
+            color: #d1d5db;
+            padding: 13px 15px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            transition: 0.2s;
+        }
+
+        .sidebar a:hover {
+            background: #1f2937;
+            color: white;
+        }
+
+        .sidebar a.active {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .main {
+            flex: 1;
+            padding: 35px;
+            max-width: 1500px;
+            width: 100%;
+            margin: auto;
+        }
+
+        .page-heading {
+            margin-bottom: 30px;
+        }
+
+        .page-heading h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .page-heading p {
+            color: #6b7280;
+            font-size: 15px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 32px;
+            border-radius: 18px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+        }
+
+        .hero-text h2 {
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+
+        .hero-text p {
+            color: #e0e7ff;
+            max-width: 700px;
+            line-height: 1.6;
+        }
+
+        .hero-icon {
+            font-size: 70px;
+        }
+
+        .section-title {
+            font-size: 21px;
+            margin-bottom: 18px;
+        }
+
+        .courses {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .course-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            padding: 23px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.04);
+            transition: 0.25s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .course-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            background: #eef2ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            margin-bottom: 16px;
+        }
+
+        .course-card h3 {
+            font-size: 18px;
+            margin-bottom: 9px;
+        }
+
+        .course-card p {
+            color: #6b7280;
+            line-height: 1.6;
+            font-size: 14px;
+            min-height: 68px;
+        }
+
+        .course-info {
+            display: flex;
+            gap: 18px;
+            margin: 15px 0;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 6px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 7px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #4f46e5;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .start-btn {
+            width: 100%;
+            border: none;
+            background: #4f46e5;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 17px;
+            transition: 0.2s;
+        }
+
+        .start-btn:hover {
+            background: #4338ca;
+        }
+
+        .recommended {
+            margin-top: 35px;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .recommended-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .recommended h3 {
+            margin-bottom: 7px;
+        }
+
+        .recommended p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .secondary-btn {
+            border: none;
+            background: #111827;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 1100px) {
+            .courses {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 800px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                padding: 20px;
+            }
+
+            .courses {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .recommended-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="brand">
+        AI Career Mentor
+    </div>
+
+    <div class="user-area">
+        <span class="user-name" id="userName">Student</span>
+        <div class="avatar" id="userAvatar">S</div>
+    </div>
+
+</header>
+
+
+<div class="layout">
+
+    <aside class="sidebar">
+
+        <h3>Career Mentor</h3>
+
+        <a href="dashboard.html">🏠 Dashboard</a>
+        <a href="assessment.html">🎯 Assessment</a>
+        <a href="careers.html">💼 Careers</a>
+        <a href="learning.html" class="active">📚 Learning</a>
+        <a href="roadmap.html">🗺️ Roadmap</a>
+        <a href="mentor.html">🤖 AI Mentor</a>
+        <a href="resume.html">📄 Resume</a>
+        <a href="interview.html">🎤 Interview</a>
+        <a href="jobs.html">🔎 Jobs</a>
+        <a href="applications.html">📋 Applications</a>
+
+        <h3 style="margin-top:25px;">Account</h3>
+
+        <a href="profile.html">👤 Profile</a>
+        <a href="settings.html">⚙️ Settings</a>
+
+    </aside>
+
+
+    <main class="main">
+
+        <div class="page-heading">
+            <h1>Learning Center</h1>
+            <p>Build the skills you need for your future career.</p>
+        </div>
+
+
+        <section class="hero">
+
+            <div class="hero-text">
+
+                <h2>Keep learning. Keep growing. 🚀</h2>
+
+                <p>
+                    Explore practical courses designed to help you develop
+                    technical skills, professional skills and career confidence.
+                </p>
+
+            </div>
+
+            <div class="hero-icon">
+                📚
+            </div>
+
+        </section>
+
+
+        <h2 class="section-title">
+            Explore Learning
+        </h2>
+
+
+        <section class="courses" id="courseContainer"></section>
+
+
+        <section class="recommended">
+
+            <div class="recommended-content">
+
+                <div>
+
+                    <h3>🎤 Ready to test your skills?</h3>
+
+                    <p>
+                        Practice interview questions and improve your
+                        confidence before applying for jobs.
+                    </p>
+
+                </div>
+
+                <button
+                    class="secondary-btn"
+                    onclick="window.location.href='interview.html'">
+                    Practice Interview
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script>
+
+const courses = [
+
+    {
+        name: "Python Programming",
+        icon: "🐍",
+        description:
+            "Learn Python from the basics and build a strong programming foundation.",
+        lessons: 5,
+        duration: "4 weeks"
+    },
+
+    {
+        name: "HTML & CSS",
+        icon: "🌐",
+        description:
+            "Learn how to build attractive and responsive websites from scratch.",
+        lessons: 5,
+        duration: "3 weeks"
+    },
+
+    {
+        name: "JavaScript",
+        icon: "⚡",
+        description:
+            "Learn JavaScript and make websites interactive and dynamic.",
+        lessons: 5,
+        duration: "4 weeks"
+    },
+
+    {
+        name: "AI & Machine Learning",
+        icon: "🤖",
+        description:
+            "Understand AI and machine learning concepts and their career applications.",
+        lessons: 5,
+        duration: "5 weeks"
+    },
+
+    {
+        name: "Data Analytics",
+        icon: "📊",
+        description:
+            "Learn how to understand, analyze and visualize data.",
+        lessons: 5,
+        duration: "4 weeks"
+    },
+
+    {
+        name: "Career & Soft Skills",
+        icon: "🎯",
+        description:
+            "Improve communication, teamwork, problem-solving and interview skills.",
+        lessons: 5,
+        duration: "3 weeks"
+    }
+
+];
+
+
+async function checkUser() {
+
+    try {
+
+        const response = await fetch("/api/user", {
+            method: "GET",
+            credentials: "include"
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success || !data.user) {
+
+            window.location.href = "login.html";
+            return;
+
+        }
+
+        const name = data.user.name || "Student";
+
+        document.getElementById("userName").textContent = name;
+
+        document.getElementById("userAvatar").textContent =
+            name.charAt(0).toUpperCase();
+
+    } catch (error) {
+
+        console.error("Authentication error:", error);
+
+        window.location.href = "login.html";
+
+    }
+
+}
+
+
+function getCourseProgress(courseName, totalLessons) {
+
+    const saved =
+        JSON.parse(
+            localStorage.getItem(
+                "courseProgress_" + courseName
+            ) || "[]"
+        );
+
+    return Math.round(
+        (saved.length / totalLessons) * 100
+    );
+
+}
+
+
+function createCourses() {
+
+    const container =
+        document.getElementById("courseContainer");
+
+    container.innerHTML = "";
+
+    courses.forEach(course => {
+
+        const progress =
+            getCourseProgress(
+                course.name,
+                course.lessons
+            );
+
+        const buttonText =
+            progress === 0
+                ? "Start Learning"
+                : progress === 100
+                    ? "Review Course"
+                    : "Continue Learning";
+
+        const card =
+            document.createElement("div");
+
+        card.className = "course-card";
+
+        card.innerHTML = `
+
+            <div class="course-icon">
+                ${course.icon}
+            </div>
+
+            <h3>
+                ${course.name}
+            </h3>
+
+            <p>
+                ${course.description}
+            </p>
+
+            <div class="course-info">
+                <span>📖 ${course.lessons} Lessons</span>
+                <span>⏱️ ${course.duration}</span>
+            </div>
+
+            <div class="progress-label">
+                <span>Progress</span>
+                <span>${progress}%</span>
+            </div>
+
+            <div class="progress-bar">
+                <div
+                    class="progress-fill"
+                    style="width:${progress}%">
+                </div>
+            </div>
+
+            <button
+                class="start-btn"
+                onclick="startCourse('${course.name}')">
+
+                ${buttonText}
+
+            </button>
+
+        `;
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+function startCourse(courseName) {
+
+    window.location.href =
+        "course.html?course=" +
+        encodeURIComponent(courseName);
+
+}
+
+
+checkUser();
+createCourses();
+
+</script>
+
+</body>
+</html>

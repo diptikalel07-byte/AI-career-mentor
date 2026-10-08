@@ -1,0 +1,2611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Course | AI Career Mentor</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        body {
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+
+        .topbar {
+
+            height: 70px;
+
+            background: white;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 35px;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 20;
+
+        }
+
+
+        .brand {
+
+            font-size: 22px;
+
+            font-weight: 700;
+
+            color: #4f46e5;
+
+        }
+
+
+        .user-area {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+        }
+
+
+        .user-name {
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+        }
+
+
+        .avatar {
+
+            width: 40px;
+
+            height: 40px;
+
+            border-radius: 50%;
+
+            background: #4f46e5;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: bold;
+
+        }
+
+
+        .layout {
+
+            display: flex;
+
+            min-height: calc(100vh - 70px);
+
+        }
+
+
+        .sidebar {
+
+            width: 250px;
+
+            background: #111827;
+
+            color: white;
+
+            padding: 25px 15px;
+
+            flex-shrink: 0;
+
+        }
+
+
+        .sidebar h3 {
+
+            color: #9ca3af;
+
+            font-size: 12px;
+
+            text-transform: uppercase;
+
+            margin: 10px 15px 15px;
+
+        }
+
+
+        .sidebar a {
+
+            display: block;
+
+            text-decoration: none;
+
+            color: #d1d5db;
+
+            padding: 13px 15px;
+
+            border-radius: 8px;
+
+            margin-bottom: 5px;
+
+            transition: 0.2s;
+
+        }
+
+
+        .sidebar a:hover {
+
+            background: #1f2937;
+
+            color: white;
+
+        }
+
+
+        .sidebar a.active {
+
+            background: #4f46e5;
+
+            color: white;
+
+        }
+
+
+        .main {
+
+            flex: 1;
+
+            padding: 30px;
+
+            max-width: 1500px;
+
+            width: 100%;
+
+            margin: auto;
+
+        }
+
+
+        .back-btn {
+
+            border: none;
+
+            background: transparent;
+
+            color: #4f46e5;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .course-header {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #4f46e5,
+                    #7c3aed
+                );
+
+            color: white;
+
+            padding: 35px;
+
+            border-radius: 18px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .course-header h1 {
+
+            font-size: 32px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .course-header p {
+
+            color: #e0e7ff;
+
+            line-height: 1.6;
+
+            max-width: 800px;
+
+        }
+
+
+        .progress-section {
+
+            margin-top: 25px;
+
+        }
+
+
+        .progress-info {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 8px;
+
+            font-size: 14px;
+
+        }
+
+
+        .progress-bar {
+
+            width: 100%;
+
+            height: 10px;
+
+            background: rgba(255,255,255,0.3);
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+        }
+
+
+        .progress-fill {
+
+            height: 100%;
+
+            background: white;
+
+            width: 0%;
+
+            transition: 0.4s;
+
+        }
+
+
+        .content-grid {
+
+            display: grid;
+
+            grid-template-columns: 290px 1fr;
+
+            gap: 25px;
+
+        }
+
+
+        .modules {
+
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 20px;
+
+            height: fit-content;
+
+            box-shadow:
+                0 3px 15px rgba(0,0,0,0.05);
+
+        }
+
+
+        .modules h2 {
+
+            font-size: 18px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .module {
+
+            padding: 14px;
+
+            border-radius: 9px;
+
+            margin-bottom: 8px;
+
+            cursor: pointer;
+
+            border: 1px solid #e5e7eb;
+
+            transition: 0.2s;
+
+        }
+
+
+        .module:hover {
+
+            background: #f3f4ff;
+
+        }
+
+
+        .module.active {
+
+            background: #eef2ff;
+
+            border-color: #6366f1;
+
+            color: #4338ca;
+
+        }
+
+
+        .module.completed {
+
+            border-left: 4px solid #16a34a;
+
+        }
+
+
+        .module-title {
+
+            font-weight: 600;
+
+            font-size: 14px;
+
+        }
+
+
+        .module-status {
+
+            font-size: 12px;
+
+            color: #6b7280;
+
+            margin-top: 5px;
+
+        }
+
+
+        .lesson-area {
+
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 32px;
+
+            box-shadow:
+                0 3px 15px rgba(0,0,0,0.05);
+
+            min-height: 520px;
+
+        }
+
+
+        .lesson-number {
+
+            color: #6366f1;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .lesson-area h2 {
+
+            font-size: 28px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .lesson-text {
+
+            color: #4b5563;
+
+            line-height: 1.8;
+
+            font-size: 16px;
+
+        }
+
+
+        .lesson-box {
+
+            background: #f8fafc;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+            margin: 25px 0;
+
+        }
+
+
+        .lesson-box h3 {
+
+            margin-bottom: 10px;
+
+            color: #172033;
+
+        }
+
+
+        .lesson-box ul {
+
+            padding-left: 20px;
+
+            line-height: 1.9;
+
+            color: #4b5563;
+
+        }
+
+
+        .code-box {
+
+            background: #111827;
+
+            color: #e5e7eb;
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            margin-top: 20px;
+
+            overflow-x: auto;
+
+            font-family: Consolas, monospace;
+
+            line-height: 1.6;
+
+            white-space: pre-wrap;
+
+        }
+
+
+        .lesson-actions {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-top: 35px;
+
+            padding-top: 20px;
+
+            border-top: 1px solid #e5e7eb;
+
+        }
+
+
+        .btn {
+
+            border: none;
+
+            padding: 12px 20px;
+
+            border-radius: 8px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+        }
+
+
+        .btn-secondary {
+
+            background: #eef2f7;
+
+            color: #374151;
+
+        }
+
+
+        .btn-primary {
+
+            background: #4f46e5;
+
+            color: white;
+
+        }
+
+
+        .btn-primary:hover {
+
+            background: #4338ca;
+
+        }
+
+
+        .btn-success {
+
+            background: #16a34a;
+
+            color: white;
+
+        }
+
+
+        .btn:disabled {
+
+            opacity: 0.45;
+
+            cursor: not-allowed;
+
+        }
+
+
+        .quiz-card {
+
+            display: none;
+
+            margin-top: 20px;
+
+            padding: 18px;
+
+            background: #f0fdf4;
+
+            border: 1px solid #bbf7d0;
+
+            border-radius: 10px;
+
+        }
+
+
+        .quiz-card h3 {
+
+            color: #166534;
+
+            margin-bottom: 6px;
+
+        }
+
+
+        .quiz-card p {
+
+            color: #4b5563;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .quiz-button {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #16a34a;
+
+            color: white;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+        }
+
+
+        .quiz-button:hover {
+
+            background: #15803d;
+
+        }
+
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                display: none;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .main {
+                padding: 18px;
+            }
+
+            .course-header h1 {
+                font-size: 25px;
+            }
+
+            .lesson-actions {
+                flex-wrap: wrap;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="topbar">
+
+    <div class="brand">
+        AI Career Mentor
+    </div>
+
+    <div class="user-area">
+
+        <span
+            class="user-name"
+            id="userName">
+            Student
+        </span>
+
+        <div
+            class="avatar"
+            id="userAvatar">
+            S
+        </div>
+
+    </div>
+
+</header>
+
+
+<div class="layout">
+
+
+    <aside class="sidebar">
+
+        <h3>Career Mentor</h3>
+
+        <a href="dashboard.html">
+            🏠 Dashboard
+        </a>
+
+        <a href="assessment.html">
+            🎯 Assessment
+        </a>
+
+        <a href="careers.html">
+            💼 Careers
+        </a>
+
+        <a
+            href="learning.html"
+            class="active">
+            📚 Learning
+        </a>
+
+        <a href="roadmap.html">
+            🗺️ Roadmap
+        </a>
+
+        <a href="mentor.html">
+            🤖 AI Mentor
+        </a>
+
+        <a href="resume.html">
+            📄 Resume
+        </a>
+
+        <a href="interview.html">
+            🎤 Interview
+        </a>
+
+        <a href="jobs.html">
+            🔎 Jobs
+        </a>
+
+        <a href="applications.html">
+            📋 Applications
+        </a>
+
+
+        <h3 style="margin-top:25px;">
+            Account
+        </h3>
+
+        <a href="profile.html">
+            👤 Profile
+        </a>
+
+        <a href="settings.html">
+            ⚙️ Settings
+        </a>
+
+    </aside>
+
+
+    <main class="main">
+
+
+        <button
+            class="back-btn"
+            onclick="goBack()">
+
+            ← Back to Learning Center
+
+        </button>
+
+
+        <section class="course-header">
+
+            <h1 id="courseTitle">
+                Course
+            </h1>
+
+            <p id="courseDescription">
+                Loading course information...
+            </p>
+
+
+            <div class="progress-section">
+
+                <div class="progress-info">
+
+                    <span>
+                        Course Progress
+                    </span>
+
+                    <span id="progressText">
+                        0%
+                    </span>
+
+                </div>
+
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-fill"
+                        id="progressFill">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <div class="content-grid">
+
+
+            <aside class="modules">
+
+                <h2>
+                    Course Content
+                </h2>
+
+                <div id="moduleList"></div>
+
+
+                <div
+                    class="quiz-card"
+                    id="quizCard">
+
+                    <h3>
+                        🎉 Course Completed!
+                    </h3>
+
+                    <p>
+                        You have completed all lessons.
+                        Test your knowledge with the course quiz.
+                    </p>
+
+                    <button
+                        class="quiz-button"
+                        onclick="takeQuiz()">
+
+                        📝 Take Course Quiz
+
+                    </button>
+
+                </div>
+
+            </aside>
+
+
+            <section class="lesson-area">
+
+
+                <div
+                    class="lesson-number"
+                    id="lessonNumber">
+
+                    Lesson 1
+
+                </div>
+
+
+                <h2 id="lessonTitle">
+                    Introduction
+                </h2>
+
+
+                <div
+                    class="lesson-text"
+                    id="lessonContent">
+
+                    Loading lesson...
+
+                </div>
+
+
+                <div class="lesson-actions">
+
+
+                    <button
+                        class="btn btn-secondary"
+                        id="previousBtn"
+                        onclick="previousLesson()">
+
+                        ← Previous
+
+                    </button>
+
+
+                    <button
+                        class="btn btn-primary"
+                        id="completeBtn"
+                        onclick="completeLesson()">
+
+                        Mark as Complete
+
+                    </button>
+
+
+                    <button
+                        class="btn btn-primary"
+                        id="nextBtn"
+                        onclick="nextLesson()">
+
+                        Next →
+
+                    </button>
+
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+
+/* =========================================================
+   COURSE DATA
+========================================================= */
+
+
+const courses = {
+
+
+    "Python Programming": {
+
+        description:
+            "Learn Python from the basics and build a strong programming foundation for software development, automation and data-related careers.",
+
+        lessons: [
+
+            {
+                title: "Introduction to Python",
+
+                content: `
+                    <p>
+                        Python is a popular and beginner-friendly
+                        programming language. It is used in web development,
+                        automation, data analysis, artificial intelligence
+                        and many other areas.
+                    </p>
+
+                    <div class="lesson-box">
+
+                        <h3>
+                            What you will learn
+                        </h3>
+
+                        <ul>
+
+                            <li>
+                                What Python is
+                            </li>
+
+                            <li>
+                                Why Python is popular
+                            </li>
+
+                            <li>
+                                Where Python is used
+                            </li>
+
+                            <li>
+                                Basic Python program structure
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    <div class="code-box">print("Hello, World!")</div>
+                `
+            },
+
+
+            {
+                title: "Variables and Data Types",
+
+                content: `
+                    <p>
+                        Variables are used to store information
+                        in a program. Python supports different
+                        data types such as strings, integers,
+                        floating-point numbers and booleans.
+                    </p>
+
+                    <div class="lesson-box">
+
+                        <h3>
+                            Example
+                        </h3>
+
+                        <p>
+                            A variable can store a name, age or
+                            any other value needed by your program.
+                        </p>
+
+                    </div>
+
+                    <div class="code-box">name = "Student"
+age = 20
+is_student = True</div>
+                `
+            },
+
+
+            {
+                title: "Conditional Statements",
+
+                content: `
+                    <p>
+                        Conditional statements allow a program
+                        to make decisions. Python mainly uses
+                        if, elif and else.
+                    </p>
+
+                    <div class="code-box">age = 20
+
+if age >= 18:
+    print("Adult")
+else:
+    print("Minor")</div>
+                `
+            },
+
+
+            {
+                title: "Loops",
+
+                content: `
+                    <p>
+                        Loops are used when we need to repeat
+                        a block of code. Python provides
+                        for loops and while loops.
+                    </p>
+
+                    <div class="code-box">for i in range(5):
+    print(i)</div>
+                `
+            },
+
+
+            {
+                title: "Functions",
+
+                content: `
+                    <p>
+                        Functions are reusable blocks of code.
+                        They make programs easier to organize,
+                        understand and maintain.
+                    </p>
+
+                    <div class="code-box">def greet(name):
+    print("Hello", name)
+
+greet("Student")</div>
+                `
+            }
+
+        ]
+
+    },
+
+
+    "HTML & CSS": {
+
+        description:
+            "Learn how websites are created using HTML and styled using CSS.",
+
+        lessons: [
+
+            {
+                title: "Introduction to HTML",
+
+                content: `
+                    <p>
+                        HTML stands for HyperText Markup Language.
+                        It provides the basic structure of a webpage.
+                    </p>
+
+                    <div class="lesson-box">
+
+                        <h3>
+                            HTML is used for
+                        </h3>
+
+                        <ul>
+
+                            <li>
+                                Headings
+                            </li>
+
+                            <li>
+                                Paragraphs
+                            </li>
+
+                            <li>
+                                Images
+                            </li>
+
+                            <li>
+                                Links
+                            </li>
+
+                            <li>
+                                Buttons
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    <div class="code-box">&lt;h1&gt;My Website&lt;/h1&gt;
+&lt;p&gt;Welcome to my website.&lt;/p&gt;</div>
+                `
+            },
+
+
+            {
+                title: "HTML Elements",
+
+                content: `
+                    <p>
+                        HTML uses different elements to create
+                        webpage content.
+                    </p>
+
+                    <div class="lesson-box">
+
+                        <h3>
+                            Common HTML Elements
+                        </h3>
+
+                        <ul>
+
+                            <li>
+                                Heading
+                            </li>
+
+                            <li>
+                                Paragraph
+                            </li>
+
+                            <li>
+                                Image
+                            </li>
+
+                            <li>
+                                Link
+                            </li>
+
+                            <li>
+                                Button
+                            </li>
+
+                        </ul>
+
+                    </div>
+                `
+            },
+
+
+            {
+                title: "Introduction to CSS",
+
+                content: `
+                    <p>
+                        CSS stands for Cascading Style Sheets.
+                        It controls the appearance of webpages.
+                    </p>
+
+                    <div class="code-box">body {
+    background: white;
+    color: black;
+}</div>
+                `
+            },
+
+
+            {
+                title: "CSS Flexbox",
+
+                content: `
+                    <p>
+                        Flexbox is a CSS layout system that helps
+                        create flexible and responsive layouts.
+                    </p>
+
+                    <div class="code-box">.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}</div>
+                `
+            },
+
+
+            {
+                title: "Responsive Websites",
+
+                content: `
+                    <p>
+                        Responsive design allows a website to
+                        work properly on computers, tablets
+                        and mobile devices.
+                    </p>
+
+                    <div class="lesson-box">
+
+                        <h3>
+                            Responsive Design
+                        </h3>
+
+                        <p>
+                            CSS media queries can be used to
+                            change the layout according to
+                            the screen size.
+                        </p>
+
+                    </div>
+                `
+            }
+
+        ]
+
+    },
+
+
+    "JavaScript": {
+
+        description:
+            "Learn JavaScript fundamentals and understand how to make websites interactive.",
+
+        lessons: [
+
+            {
+                title: "Introduction to JavaScript",
+
+                content: `
+                    <p>
+                        JavaScript is a programming language
+                        commonly used to add interaction and
+                        dynamic behaviour to websites.
+                    </p>
+
+                    <div class="code-box">console.log("Hello JavaScript");</div>
+                `
+            },
+
+
+            {
+                title: "Variables",
+
+                content: `
+                    <p>
+                        JavaScript provides variables using
+                        let, const and var.
+                    </p>
+
+                    <div class="code-box">let name = "Student";
+const age = 20;</div>
+                `
+            },
+
+
+            {
+                title: "Functions",
+
+                content: `
+                    <p>
+                        Functions allow you to group reusable
+                        JavaScript code.
+                    </p>
+
+                    <div class="code-box">function greet() {
+    alert("Hello!");
+}
+
+greet();</div>
+                `
+            },
+
+
+            {
+                title: "DOM Manipulation",
+
+                content: `
+                    <p>
+                        The DOM allows JavaScript to access
+                        and change HTML elements on a webpage.
+                    </p>
+
+                    <div class="code-box">document.getElementById("title").innerText = "Welcome";</div>
+                `
+            },
+
+
+            {
+                title: "Events",
+
+                content: `
+                    <p>
+                        Events allow webpages to respond to
+                        actions such as clicks, typing and
+                        mouse movements.
+                    </p>
+
+                    <div class="lesson-box">
+
+                        <h3>
+                            Common Events
+                        </h3>
+
+                        <ul>
+
+                            <li>
+                                Click
+                            </li>
+
+                            <li>
+                                Mouse movement
+                            </li>
+
+                            <li>
+                                Keyboard input
+                            </li>
+
+                            <li>
+                                Form submission
+                            </li>
+
+                        </ul>
+
+                    </div>
+                `
+            }
+
+        ]
+
+    },
+
+
+    "AI & Machine Learning": {
+
+        description:
+            "Understand the fundamentals of artificial intelligence and machine learning.",
+
+        lessons: [
+
+            {
+                title: "Introduction to AI",
+
+                content: `
+                    <p>
+                        Artificial Intelligence is the field
+                        of creating computer systems that can
+                        perform tasks that normally require
+                        human intelligence.
+                    </p>
+
+                    <div class="lesson-box">
+
+                        <h3>
+                            Examples of AI
+                        </h3>
+
+                        <ul>
+
+                            <li>
+                                Recommendation systems
+                            </li>
+
+                            <li>
+                                Voice assistants
+                            </li>
+
+                            <li>
+                                Image recognition
+                            </li>
+
+                            <li>
+                                Chatbots
+                            </li>
+
+                        </ul>
+
+                    </div>
+                `
+            },
+
+
+            {
+                title: "Machine Learning Basics",
+
+                content: `
+                    <p>
+                        Machine Learning allows computers to
+                        learn patterns from data and make
+                        predictions or decisions.
+                    </p>
+
+                    <div class="lesson-box">
+
+                        <h3>
+                            Basic Idea
+                        </h3>
+
+                        <p>
+                            Data is provided to an algorithm,
+                            the algorithm learns patterns and
+                            the resulting model can make
+                            predictions on new data.
+                        </p>
+
+                    </div>
+                `
+            },
+
+
+            {
+                title: "Types of Machine Learning",
+
+                content: `
+                    <p>
+                        Machine learning can be divided into
+                        several important types.
+                    </p>
+
+                    <div class="lesson-box">
+
+                        <h3>
+                            Main Types
+                        </h3>
+
+                        <ul>
+
+                            <li>
+                                Supervised Learning
+                            </li>
+
+                            <li>
+                                Unsupervised Learning
+                            </li>
+
+                            <li>
+                                Reinforcement Learning
+                            </li>
+
+                        </ul>
+
+                    </div>
+                `
+            },
+
+
+            {
+                title: "Training Data",
+
+                content: `
+                    <p>
+                        Training data is used to teach a
+                        machine learning model to recognize
+                        patterns.
+                    </p>
+
+                    <div class="lesson-box">
+
+                        <h3>
+                            Important Concept
+                        </h3>
+
+                        <p>
+                            The quality and relevance of
+                            training data can strongly affect
+                            the performance of a model.
+                        </p>
+
+                    </div>
+                `
+            },
+
+
+            {
+                title: "AI Career Opportunities",
+
+                content: `
+                    <p>
+                        AI skills can lead to several
+                        technology careers.
+                    </p>
+
+                    <div class="lesson-box">
+
+                        <h3>
+                            Career Examples
+                        </h3>
+
+                        <ul>
+
+                            <li>
+                                AI Engineer
+                            </li>
+
+                            <li>
+                                Machine Learning Engineer
+                            </li>
+
+                            <li>
+                                Data Scientist
+                            </li>
+
+                            <li>
+                                AI Developer
+                            </li>
+
+                        </ul>
+
+                    </div>
+                `
+            }
+
+        ]
+
+    },
+
+
+    "Data Analytics": {
+
+        description:
+            "Learn the fundamentals of data analysis and how organizations use data to make decisions.",
+
+        lessons: [
+
+            {
+                title: "Introduction to Data Analytics",
+
+                content: `
+                    <p>
+                        Data analytics involves examining
+                        data to discover useful information,
+                        trends and patterns.
+                    </p>
+
+                    <div class="lesson-box">
+
+                        <h3>
+                            Data Analytics Process
+                        </h3>
+
+                        <ul>
+
+                            <li>
+                                Collect data
+                            </li>
+
+                            <li>
+                                Clean data
+                            </li>
+
+                            <li>
+                                Analyze data
+                            </li>
+
+                            <li>
+                                Visualize results
+                            </li>
+
+                        </ul>
+
+                    </div>
+                `
+            },
+
+
+            {
+                title: "Types of Data",
+
+                content: `
+                    <p>
+                        Data can be represented in different
+                        forms depending on the information
+                        being collected.
+                    </p>
+
+                    <div class="lesson-box">
+
+                        <h3>
+                            Examples
+                        </h3>
+
+                        <ul>
+
+                            <li>
+                                Numerical data
+                            </li>
+
+                            <li>
+                                Categorical data
+                            </li>
+
+                            <li>
+                                Text data
+                            </li>
+
+                            <li>
+                                Structured data
+                            </li>
+
+                            <li>
+                                Unstructured data
+                            </li>
+
+                        </ul>
+
+                    </div>
+                `
+            },
+
+
+            {
+                title: "Excel for Data Analysis",
+
+                content: `
+                    <p>
+                        Excel is commonly used for organizing,
+                        calculating and analyzing data.
+                    </p>
+
+                    <div class="lesson-box">
+
+                        <h3>
+                            Useful Excel Features
+                        </h3>
+
+                        <ul>
+
+                            <li>
+                                Formulas
+                            </li>
+
+                            <li>
+                                Sorting
+                            </li>
+
+                            <li>
+                                Filtering
+                            </li>
+
+                            <li>
+                                Charts
+                            </li>
+
+                        </ul>
+
+                    </div>
+                `
+            },
+
+
+            {
+                title: "Data Visualization",
+
+                content: `
+                    <p>
+                        Data visualization represents
+                        information using charts, graphs
+                        and dashboards.
+                    </p>
+
+                    <div class="lesson-box">
+
+                        <h3>
+                            Common Visualizations
+                        </h3>
+
+                        <ul>
+
+                            <li>
+                                Bar charts
+                            </li>
+
+                            <li>
+                                Line charts
+                            </li>
+
+                            <li>
+                                Pie charts
+                            </li>
+
+                            <li>
+                                Dashboards
+                            </li>
+
+                        </ul>
+
+                    </div>
+                `
+            },
+
+
+            {
+                title: "Analytics Career",
+
+                content: `
+                    <p>
+                        Data analysts work with data to help
+                        organizations understand trends and
+                        make informed decisions.
+                    </p>
+
+                    <div class="lesson-box">
+
+                        <h3>
+                            Useful Skills
+                        </h3>
+
+                        <ul>
+
+                            <li>
+                                Excel
+                            </li>
+
+                            <li>
+                                SQL
+                            </li>
+
+                            <li>
+                                Data visualization
+                            </li>
+
+                            <li>
+                                Basic statistics
+                            </li>
+
+                        </ul>
+
+                    </div>
+                `
+            }
+
+        ]
+
+    },
+
+
+    "Career & Soft Skills": {
+
+        description:
+            "Develop communication, teamwork, problem-solving and professional skills for your career.",
+
+        lessons: [
+
+            {
+                title: "Communication Skills",
+
+                content: `
+                    <p>
+                        Good communication helps you express
+                        ideas clearly and work effectively
+                        with other people.
+                    </p>
+
+                    <div class="lesson-box">
+
+                        <h3>
+                            Good Communication Includes
+                        </h3>
+
+                        <ul>
+
+                            <li>
+                                Clear speaking
+                            </li>
+
+                            <li>
+                                Active listening
+                            </li>
+
+                            <li>
+                                Professional writing
+                            </li>
+
+                            <li>
+                                Appropriate body language
+                            </li>
+
+                        </ul>
+
+                    </div>
+                `
+            },
+
+
+            {
+                title: "Teamwork",
+
+                content: `
+                    <p>
+                        Teamwork involves cooperating with
+                        others to achieve a common goal.
+                    </p>
+
+                    <div class="lesson-box">
+
+                        <h3>
+                            Good Teamwork
+                        </h3>
+
+                        <ul>
+
+                            <li>
+                                Respect other opinions
+                            </li>
+
+                            <li>
+                                Share responsibilities
+                            </li>
+
+                            <li>
+                                Communicate clearly
+                            </li>
+
+                            <li>
+                                Help team members
+                            </li>
+
+                        </ul>
+
+                    </div>
+                `
+            },
+
+
+            {
+                title: "Problem Solving",
+
+                content: `
+                    <p>
+                        Problem solving involves identifying
+                        a problem, understanding its cause
+                        and finding an effective solution.
+                    </p>
+
+                    <div class="lesson-box">
+
+                        <h3>
+                            Basic Process
+                        </h3>
+
+                        <ol>
+
+                            <li>
+                                Identify the problem
+                            </li>
+
+                            <li>
+                                Understand the cause
+                            </li>
+
+                            <li>
+                                Think of possible solutions
+                            </li>
+
+                            <li>
+                                Choose the best solution
+                            </li>
+
+                            <li>
+                                Evaluate the result
+                            </li>
+
+                        </ol>
+
+                    </div>
+                `
+            },
+
+
+            {
+                title: "Time Management",
+
+                content: `
+                    <p>
+                        Time management helps you organize
+                        tasks according to importance and
+                        deadlines.
+                    </p>
+
+                    <div class="lesson-box">
+
+                        <h3>
+                            Helpful Habits
+                        </h3>
+
+                        <ul>
+
+                            <li>
+                                Create a task list
+                            </li>
+
+                            <li>
+                                Set priorities
+                            </li>
+
+                            <li>
+                                Avoid unnecessary distractions
+                            </li>
+
+                            <li>
+                                Set realistic deadlines
+                            </li>
+
+                        </ul>
+
+                    </div>
+                `
+            },
+
+
+            {
+                title: "Interview Skills",
+
+                content: `
+                    <p>
+                        Preparing your introduction,
+                        understanding the company and
+                        practising common interview
+                        questions can improve confidence.
+                    </p>
+
+                    <div class="lesson-box">
+
+                        <h3>
+                            Interview Preparation
+                        </h3>
+
+                        <ul>
+
+                            <li>
+                                Prepare your introduction
+                            </li>
+
+                            <li>
+                                Review your resume
+                            </li>
+
+                            <li>
+                                Practise common questions
+                            </li>
+
+                            <li>
+                                Research the company
+                            </li>
+
+                        </ul>
+
+                    </div>
+                `
+            }
+
+        ]
+
+    }
+
+};
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+
+let currentCourse = "";
+
+let currentLesson = 0;
+
+let completedLessons = [];
+
+
+/* =========================================================
+   AUTHENTICATION
+========================================================= */
+
+
+async function checkUser() {
+
+    try {
+
+        const response = await fetch(
+            "/api/user",
+            {
+                method: "GET",
+                credentials: "include"
+            }
+        );
+
+
+        const data = await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success ||
+            !data.user
+        ) {
+
+            window.location.href = "login.html";
+
+            return;
+
+        }
+
+
+        const name =
+            data.user.name || "Student";
+
+
+        document.getElementById(
+            "userName"
+        ).textContent = name;
+
+
+        document.getElementById(
+            "userAvatar"
+        ).textContent =
+            name
+                .charAt(0)
+                .toUpperCase();
+
+
+    } catch (error) {
+
+        console.error(
+            "Authentication error:",
+            error
+        );
+
+        window.location.href =
+            "login.html";
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD COURSE
+========================================================= */
+
+
+function loadCourse() {
+
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    currentCourse =
+        params.get("course");
+
+
+    if (
+        !currentCourse ||
+        !courses[currentCourse]
+    ) {
+
+        currentCourse =
+            "Python Programming";
+
+    }
+
+
+    const saved =
+        localStorage.getItem(
+            "courseProgress_" +
+            currentCourse
+        );
+
+
+    try {
+
+        completedLessons =
+            saved
+                ? JSON.parse(saved)
+                : [];
+
+    } catch {
+
+        completedLessons = [];
+
+    }
+
+
+    currentLesson = 0;
+
+
+    document.getElementById(
+        "courseTitle"
+    ).textContent =
+        currentCourse;
+
+
+    document.getElementById(
+        "courseDescription"
+    ).textContent =
+        courses[currentCourse].description;
+
+
+    createModules();
+
+    updateLesson();
+
+    updateProgress();
+
+}
+
+
+/* =========================================================
+   CREATE MODULE LIST
+========================================================= */
+
+
+function createModules() {
+
+
+    const list =
+        document.getElementById(
+            "moduleList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    const lessons =
+        courses[currentCourse].lessons;
+
+
+    lessons.forEach(
+        (lesson, index) => {
+
+
+            const module =
+                document.createElement(
+                    "div"
+                );
+
+
+            module.className =
+                "module";
+
+
+            if (
+                index === currentLesson
+            ) {
+
+                module.classList.add(
+                    "active"
+                );
+
+            }
+
+
+            if (
+                completedLessons.includes(
+                    index
+                )
+            ) {
+
+                module.classList.add(
+                    "completed"
+                );
+
+            }
+
+
+            const completed =
+                completedLessons.includes(
+                    index
+                );
+
+
+            module.innerHTML = `
+
+                <div class="module-title">
+
+                    ${completed ? "✓ " : ""}
+
+                    ${index + 1}.
+                    ${lesson.title}
+
+                </div>
+
+                <div class="module-status">
+
+                    ${
+                        completed
+                            ? "Completed"
+                            : "Not completed"
+                    }
+
+                </div>
+
+            `;
+
+
+            module.onclick = function() {
+
+                currentLesson =
+                    index;
+
+                updateLesson();
+
+                createModules();
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+            };
+
+
+            list.appendChild(
+                module
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE LESSON
+========================================================= */
+
+
+function updateLesson() {
+
+
+    const lessons =
+        courses[currentCourse].lessons;
+
+
+    const lesson =
+        lessons[currentLesson];
+
+
+    document.getElementById(
+        "lessonNumber"
+    ).textContent =
+        "Lesson " +
+        (currentLesson + 1) +
+        " of " +
+        lessons.length;
+
+
+    document.getElementById(
+        "lessonTitle"
+    ).textContent =
+        lesson.title;
+
+
+    document.getElementById(
+        "lessonContent"
+    ).innerHTML =
+        lesson.content;
+
+
+    document.getElementById(
+        "previousBtn"
+    ).disabled =
+        currentLesson === 0;
+
+
+    document.getElementById(
+        "nextBtn"
+    ).disabled =
+        currentLesson ===
+        lessons.length - 1;
+
+
+    const completeButton =
+        document.getElementById(
+            "completeBtn"
+        );
+
+
+    if (
+        completedLessons.includes(
+            currentLesson
+        )
+    ) {
+
+        completeButton.textContent =
+            "✓ Completed";
+
+
+        completeButton.className =
+            "btn btn-success";
+
+    } else {
+
+        completeButton.textContent =
+            "Mark as Complete";
+
+
+        completeButton.className =
+            "btn btn-primary";
+
+    }
+
+
+    updateQuizCard();
+
+}
+
+
+/* =========================================================
+   MARK LESSON COMPLETE
+========================================================= */
+
+
+function completeLesson() {
+
+
+    if (
+        !completedLessons.includes(
+            currentLesson
+        )
+    ) {
+
+        completedLessons.push(
+            currentLesson
+        );
+
+
+        completedLessons.sort(
+            (a, b) => a - b
+        );
+
+
+        saveProgress();
+
+    }
+
+
+    updateLesson();
+
+    createModules();
+
+    updateProgress();
+
+
+    if (
+        currentLesson <
+        courses[currentCourse].lessons.length - 1
+    ) {
+
+        setTimeout(() => {
+
+            currentLesson++;
+
+            updateLesson();
+
+            createModules();
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }, 350);
+
+    }
+
+}
+
+
+/* =========================================================
+   NEXT LESSON
+========================================================= */
+
+
+function nextLesson() {
+
+
+    if (
+        currentLesson <
+        courses[currentCourse].lessons.length - 1
+    ) {
+
+        currentLesson++;
+
+
+        updateLesson();
+
+        createModules();
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+}
+
+
+/* =========================================================
+   PREVIOUS LESSON
+========================================================= */
+
+
+function previousLesson() {
+
+
+    if (
+        currentLesson > 0
+    ) {
+
+        currentLesson--;
+
+
+        updateLesson();
+
+        createModules();
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+}
+
+
+/* =========================================================
+   SAVE PROGRESS
+========================================================= */
+
+
+function saveProgress() {
+
+
+    localStorage.setItem(
+
+        "courseProgress_" +
+        currentCourse,
+
+        JSON.stringify(
+            completedLessons
+        )
+
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE PROGRESS
+========================================================= */
+
+
+function updateProgress() {
+
+
+    const total =
+        courses[currentCourse]
+            .lessons.length;
+
+
+    const completed =
+        completedLessons.length;
+
+
+    const percentage =
+        Math.round(
+            (completed / total) * 100
+        );
+
+
+    document.getElementById(
+        "progressText"
+    ).textContent =
+        percentage + "%";
+
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        percentage + "%";
+
+
+    updateQuizCard();
+
+}
+
+
+/* =========================================================
+   QUIZ CARD
+========================================================= */
+
+
+function updateQuizCard() {
+
+
+    const total =
+        courses[currentCourse]
+            .lessons.length;
+
+
+    const quizCard =
+        document.getElementById(
+            "quizCard"
+        );
+
+
+    if (
+        completedLessons.length >= total
+    ) {
+
+        quizCard.style.display =
+            "block";
+
+    } else {
+
+        quizCard.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =========================================================
+   QUIZ
+========================================================= */
+
+
+function takeQuiz() {
+
+
+    window.location.href =
+        "quiz.html?course=" +
+        encodeURIComponent(
+            currentCourse
+        );
+
+}
+
+
+/* =========================================================
+   BACK
+========================================================= */
+
+
+function goBack() {
+
+    window.location.href =
+        "learning.html";
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+
+checkUser();
+
+loadCourse();
+
+
+</script>
+
+</body>
+
+</html>
